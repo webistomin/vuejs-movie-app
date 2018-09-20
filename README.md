@@ -47,16 +47,18 @@
 Предполагается, что все команды вы выполняете в bash (для OSX и Linux это самый обычный встроенный терминал, для Windows это, к примеру, Git Bash). В Windows установку пакетов (npm i) нужно выполять в терминале, запущенном от имени администратора.
 
 ## Техническое задание 
-https://gist.github.com/krambertech/ecb3890824fd7ada0f4ec1ff55125758
-
-[travis-image]: https://travis-ci.org/webistomin/vuejs-movie-app.svg?branch=master
-[travis-url]: https://travis-ci.org/webistomin/vuejs-movie-app
-[dependency-image]: https://david-dm.org/webistomin/vuejs-movie-app/dev-status.svg
-[dependency-url]: https://david-dm.org/webistomin/vuejs-movie-app
+<a href="https://gist.github.com/krambertech/ecb3890824fd7ada0f4ec1ff55125758" target="_blank">Открыть в новом окне</a>
 
 ## Используемые технологии
 1. Vue Js
 2. Vuex
 3. Vue Router
-4. axios
+4. Vuetify
+5. axios
+
+
+[travis-image]: https://travis-ci.org/webistomin/vuejs-movie-app.svg?branch=master
+[travis-url]: https://travis-ci.org/webistomin/vuejs-movie-app
+[dependency-image]: https://david-dm.org/webistomin/vuejs-movie-app/dev-status.svg
+[dependency-url]: https://david-dm.org/webistomin/vuejs-movie-app
 
