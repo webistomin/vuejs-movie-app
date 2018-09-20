@@ -28,6 +28,5 @@ npm run build --report
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-## Техническое задание
-
-<script src="https://gist.github.com/benbalter/5555251.js?file=gist.md"></script>
+## Техническое задание 
+https://gist.github.com/krambertech/ecb3890824fd7ada0f4ec1ff55125758
