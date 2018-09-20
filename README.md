@@ -1,7 +1,7 @@
 # vuejs-movie-app 
 > Одностраничное приложения для просмотра фильмов с помощью The Movie Database API
 
-[![forthebadge](https://forthebadge.com/images/badges/made-with-vue.svg)](https://forthebadge.com) [![Build status][travis-image]][travis-url] [![dependencies Status](https://david-dm.org/webistomin/vuejs-movie-app/status.svg)](https://david-dm.org/webistomin/vuejs-movie-app) [![Dependency status][dependency-image]][dependency-url] 
+[![Build status][travis-image]][travis-url] [![dependencies Status](https://david-dm.org/webistomin/vuejs-movie-app/status.svg)](https://david-dm.org/webistomin/vuejs-movie-app) [![Dependency status][dependency-image]][dependency-url] 
 
 При открытии приложения, отображается список популярных фильмов с пагинацией или динамической подгрузкой (на выбор). Также на странице должно быть располагается поле поиска. Когда ты вводишь туда какой-то текст, отображаются фильмы которые ему соответствуют. Для каждого фильма в списке отображается список жанров, к которым он принадлежит.
 
@@ -53,4 +53,10 @@ https://gist.github.com/krambertech/ecb3890824fd7ada0f4ec1ff55125758
 [travis-url]: https://travis-ci.org/webistomin/vuejs-movie-app
 [dependency-image]: https://david-dm.org/webistomin/vuejs-movie-app/dev-status.svg
 [dependency-url]: https://david-dm.org/webistomin/vuejs-movie-app
+
+## Используемые технологии
+1. Vue Js
+2. Vuex
+3. Vue Router
+4. axios
 
