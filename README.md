@@ -50,7 +50,7 @@
 <a href="https://gist.github.com/krambertech/ecb3890824fd7ada0f4ec1ff55125758" target="_blank">Открыть gist</a>
 
 ## Используемые технологии
-1. Vue Js
+1. VueJs
 2. Vuex
 3. Vue Router
 4. Vuetify
