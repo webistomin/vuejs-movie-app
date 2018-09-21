@@ -50,11 +50,37 @@
 <a href="https://gist.github.com/krambertech/ecb3890824fd7ada0f4ec1ff55125758" target="_blank">Открыть gist</a>
 
 ## Используемые технологии
-1. VueJs
-2. Vuex
-3. Vue Router
-4. Vuetify
-5. axios
+
+<table>
+  <thead>
+    <tr>
+      <th>Технология</th>
+      <th>Описание</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://ru.vuejs.org/index.html">VueJs</a></td>
+      <td>Позже</td>
+    </tr>
+    <tr>
+      <td><a href="https://vuex.vuejs.org/ru/">Vuex</a></td>
+      <td>Позже</td>
+    </tr>
+     <tr>
+      <td><a href="https://router.vuejs.org/ru/">Vue Router</a></td>
+      <td>Позже</td>
+    </tr>
+     <tr>
+      <td><a href="https://vuetifyjs.com/ru/">Vuetify</a></td>
+      <td>Позже</td>
+    </tr>
+    <tr>
+      <td><a href="https://ru.vuejs.org/v2/cookbook/using-axios-to-consume-apis.html">axios</a></td>
+      <td>Позже</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Искал вдохновениние
 <a href='https://github.com/dmtrbrl/tmdb-app'>Тут</a> и <a href='https://github.com/SKempin/reactjs-tmdb-app'>тут</a>
