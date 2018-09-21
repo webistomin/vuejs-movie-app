@@ -60,7 +60,7 @@
   </thead>
   <tbody>
     <tr>
-      <td><a href="https://ru.vuejs.org/index.html">VueJs</a></td>
+      <td><a href="https://ru.vuejs.org/index.html">Vue.js</a></td>
       <td>Позже</td>
     </tr>
     <tr>
