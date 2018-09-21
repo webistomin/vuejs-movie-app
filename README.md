@@ -56,6 +56,9 @@
 4. Vuetify
 5. axios
 
+## Искал вдохновениние
+<a href='https://github.com/dmtrbrl/tmdb-app'>Тут</a> и <a href='https://github.com/SKempin/reactjs-tmdb-app'>тут</a>
+
 
 [travis-image]: https://travis-ci.org/webistomin/vuejs-movie-app.svg?branch=master
 [travis-url]: https://travis-ci.org/webistomin/vuejs-movie-app

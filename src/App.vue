@@ -1,10 +1,10 @@
 <template>
-  <v-app id="inspire" dark>
+  <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
       clipped
       fixed
-      app
+      class="pt-5"
     >
       <v-list three-line>
         <v-list-tile @click="" tabindex="0">
@@ -39,6 +39,14 @@
             <v-list-tile-title>Now playing</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <v-icon large>favorite_border</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Favorite</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar app fixed clipped-left prominent style="background-color: #42b883">
@@ -58,10 +66,34 @@
       </v-text-field>
     </v-toolbar>
     <v-content>
-      <v-container fluid fill-height>
-        <v-layout justify-center align-center>
-          <v-flex shrink>
-
+      <v-container grid-list-xl fluid>
+        <v-layout row wrap >
+          <v-flex xs12 sm6 md3 v-for="card of 20">
+            <v-card color="#35495e" >
+              <v-img
+                :src="`https://unsplash.it/1000/1000?image=${Math.floor(Math.random() * 100) + 1}`"
+              >
+              </v-img>
+              <v-card-title primary-title>
+                <div>
+                  <h4 class="title">Movie {{card}}</h4>
+                </div>
+              </v-card-title>
+              <v-card-actions>
+                <v-tooltip right>
+                  <v-btn
+                    slot="activator"
+                    flat
+                    fab
+                    icon
+                    color="#42b883"
+                  >
+                    <v-icon>favorite</v-icon>
+                  </v-btn>
+                  <span>Add to favorite list</span>
+                </v-tooltip>
+              </v-card-actions>
+            </v-card>
           </v-flex>
         </v-layout>
       </v-container>
