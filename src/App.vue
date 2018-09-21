@@ -2,7 +2,6 @@
   <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
-      clipped
       fixed
       class="pt-5"
     >
@@ -49,7 +48,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar app fixed clipped-left prominent style="background-color: #42b883">
+    <v-toolbar flat app fixed clipped-left prominent style="background-color: #42b883">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title class="hidden-sm-and-down">TMDb Movie App</v-toolbar-title>
       <v-text-field
@@ -69,14 +68,14 @@
       <v-container grid-list-xl fluid>
         <v-layout row wrap >
           <v-flex xs12 sm6 md3 v-for="card of 20">
-            <v-card color="#35495e" >
+            <v-card color="#35495e" hover>
               <v-img
                 :src="`https://unsplash.it/1000/1000?image=${Math.floor(Math.random() * 100) + 1}`"
               >
               </v-img>
               <v-card-title primary-title>
                 <div>
-                  <h4 class="title">Movie {{card}}</h4>
+                  <h2 class="title">Movie {{card}}</h2>
                 </div>
               </v-card-title>
               <v-card-actions>
@@ -98,7 +97,7 @@
         </v-layout>
       </v-container>
     </v-content>
-    <v-footer app fixed style="background-color: #42b883">
+    <v-footer style="background-color: #42b883">
       <span>&copy; 2017</span>
     </v-footer>
   </v-app>
@@ -109,12 +108,22 @@
     data: () => ({
       drawer: false
     }),
+    updated() {
+      console.log('updated')
+    },
     props: {
       source: String
-    }
+    },
   }
 </script>
 
 <style>
+  .v-card {
+    transition: transform 0.3s ease-in-out;
+  }
 
+  .v-card:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s ease-in-out;
+  }
 </style>
