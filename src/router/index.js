@@ -5,8 +5,6 @@ import nowPlayingList from '@/components/NowPlayingList'
 import topRatedList from '@/components/TopRatedList'
 import upcomingList from '@/components/UpcomingList'
 
-
-
 Vue.use(Router)
 
 export default new Router({

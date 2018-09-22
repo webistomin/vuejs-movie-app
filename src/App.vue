@@ -73,7 +73,7 @@
           <v-flex xs12 sm6 md3 v-for="movie of getMoviesList" :key="movie.id">
             <v-card color="#35495e" hover style="min-height: 652px">
               <v-img
-                :src="'http://image.tmdb.org/t/p/w400/' + movie.poster_path || 'https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg'"
+                :src="'http://image.tmdb.org/t/p/w500/' + movie.poster_path || 'https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg'"
                 style="height: 500px"
               >
               </v-img>
