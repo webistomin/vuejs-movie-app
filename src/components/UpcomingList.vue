@@ -1,5 +1,7 @@
 <template>
-  
+  <div>
+    <h1>СКОРО ВЫЙДУТ</h1>
+  </div>
 </template>
 
 <script>

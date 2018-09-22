@@ -22,7 +22,6 @@ export default new Vuex.Store({
 
     saveGenres(state, payload) {
       state.genres = payload
-      console.log(state.genres)
     }
   },
   actions: {

@@ -14,7 +14,7 @@
             <v-list-tile-title>Popular</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="">
+        <v-list-tile @click="drawer = false" to="/top-rated-movies">
           <v-list-tile-action>
             <v-icon large>trending_up</v-icon>
           </v-list-tile-action>
@@ -22,7 +22,7 @@
             <v-list-tile-title>Top rated</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="">
+        <v-list-tile @click="drawer = false" to="/upcoming-movies">
           <v-list-tile-action>
             <v-icon large>calendar_today</v-icon>
           </v-list-tile-action>
@@ -30,7 +30,7 @@
             <v-list-tile-title>Upcoming</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="">
+        <v-list-tile @click="drawer = false" to="/now-playing-movies">
           <v-list-tile-action>
             <v-icon large>play_circle_outline</v-icon>
           </v-list-tile-action>
@@ -38,7 +38,7 @@
             <v-list-tile-title>Now playing</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="">
+        <v-list-tile @click="drawer = false" to="/favorite-movies">
           <v-list-tile-action>
             <v-icon large>favorite_border</v-icon>
           </v-list-tile-action>
@@ -67,6 +67,7 @@
       </v-text-field>
     </v-toolbar>
     <v-content>
+      <router-view></router-view>
       <v-container grid-list-xl fluid v-if="searchQuery">
         <v-layout row wrap >
           <v-flex xs12 sm6 md3 v-for="movie of getMoviesList" :key="movie.id">
@@ -78,9 +79,9 @@
               </v-img>
               <v-card-title primary-title>
                 <div>
-                  <h2 class="title">{{movie.title}}</h2>
+                  <h2 class="subheading">{{movie.title}}</h2>
                   <div>
-                    <v-chip label v-for="genre of getCurrentGenres(movie.genre_ids)">{{genre}}</v-chip>
+                    <v-chip class="caption" label v-for="genre of getCurrentGenres(movie.genre_ids)">{{genre}}</v-chip>
                   </div>
                 </div>
               </v-card-title>
@@ -144,6 +145,7 @@
           case 'sm': return 'ml-3'
           case 'md': return 'ml-4'
           case 'lg': return 'ml-5'
+          case 'xl': return 'ml-5'
         }
       },
       searchQuery: {
@@ -163,6 +165,7 @@
     },
     methods: {
       getMoviesFromAPI () {
+        this.$router.push('/');
         this.$store.dispatch('getMoviesFromAPI')
       },
 
@@ -177,7 +180,12 @@
             }
           }
         }
-        return result
+
+        if (result.length !== 0) {
+          return result
+        } else {
+          return ['none']
+        }
       }
     }
   }

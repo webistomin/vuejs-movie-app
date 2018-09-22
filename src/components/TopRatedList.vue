@@ -1,5 +1,7 @@
 <template>
-  
+  <div>
+    <h1>ЛУЧШИЕ ФИЛЬМЫ</h1>
+  </div>
 </template>
 
 <script>

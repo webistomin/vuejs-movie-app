@@ -1,5 +1,7 @@
 <template>
-  
+  <div>
+    <h1>СПИКО ИЗБРАННОГО</h1>
+  </div>
 </template>
 
 <script>
