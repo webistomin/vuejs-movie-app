@@ -80,7 +80,7 @@
                 <div>
                   <h2 class="title">{{movie.title}}</h2>
                   <div>
-                    <v-chip label v-for="genre of movie.genre_ids">{{genre}}</v-chip>
+                    <v-chip label v-for="genre of getCurrentGenres(movie.genre_ids)">{{genre}}</v-chip>
                   </div>
                 </div>
               </v-card-title>
@@ -124,12 +124,19 @@
 </template>
 
 <script>
+  import axios from 'axios'
+
   export default {
     data: () => ({
       drawer: false,
       isVisible: false,
     }),
-    mounted () {},
+    mounted () {
+      axios
+        .get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${this.$store.state.personalAPIKey}&language=en-US`)
+        .then((response) => this.$store.commit('saveGenres', response.data))
+        .catch(error => console.log(error));
+    },
     computed: {
       setMarginSearchField () {
         switch (this.$vuetify.breakpoint.name) {
@@ -148,13 +155,30 @@
         }
       },
       getMoviesList () {
-        return this.$store.getters.getMoviesList.data.results
+        return this.$store.getters.getMoviesList.results
+      },
+      getGenresList () {
+        return this.$store.getters.getGenresList.genres
       }
     },
     methods: {
       getMoviesFromAPI () {
         this.$store.dispatch('getMoviesFromAPI')
       },
+
+      getCurrentGenres (arrayOfGenreIds) {
+        const result = [];
+        const genresList = this.$store.getters.getGenresList.genres;
+
+        for (let j = 0; j < arrayOfGenreIds.length; j++) {
+           for (let i = 0; i < genresList.length; i++) {
+            if (arrayOfGenreIds[j] === genresList[i].id) {
+              result.push(genresList[i].name)
+            }
+          }
+        }
+        return result
+      }
     }
   }
 </script>
