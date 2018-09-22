@@ -61,21 +61,24 @@
         color="#42b883"
         autofocus
         placeholder="Search for a movie..."
-      class="ml-5">
+        class="ml-5"
+        v-model.lazy.trim="searchQuery"
+        @input="getMovies">
       </v-text-field>
     </v-toolbar>
     <v-content>
-      <v-container grid-list-xl fluid>
+      <v-container grid-list-xl fluid v-if="searchQuery">
         <v-layout row wrap >
-          <v-flex xs12 sm6 md3 v-for="card of 20">
-            <v-card color="#35495e" hover>
+          <v-flex xs12 sm6 md3 v-for="movie of movies.data.results">
+            <v-card color="#35495e" hover style="min-height: 652px">
               <v-img
-                :src="`https://unsplash.it/1000/1000?image=${Math.floor(Math.random() * 100) + 1}`"
+                :src="'http://image.tmdb.org/t/p/w400/' + movie.poster_path"
+                style="height: 500px"
               >
               </v-img>
               <v-card-title primary-title>
                 <div>
-                  <h2 class="title">Movie {{card}}</h2>
+                  <h2 class="title">Movie {{movie.title}}</h2>
                 </div>
               </v-card-title>
               <v-card-actions>
@@ -104,12 +107,24 @@
 </template>
 
 <script>
+  import axios from 'axios'
+
   export default {
     data: () => ({
-      drawer: false
+      drawer: false,
+      myAPI: '52217232f795bbefbb1b7c951aae98ad',
+      searchQuery: '',
+      movies: []
     }),
-    updated() {
-      console.log('updated')
+    methods: {
+      getMovies () {
+        let query = encodeURI(this.searchQuery)
+        console.log(query)
+        axios
+          .get(`https://api.themoviedb.org/3/search/movie?api_key=${this.myAPI}&language=en-US&query=${query}&page=1&include_adult=false`)
+          .then(response => (this.movies = response))
+          .catch(error => console.log(error));
+      }
     },
     props: {
       source: String
