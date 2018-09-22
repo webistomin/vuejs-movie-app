@@ -61,24 +61,27 @@
         color="#42b883"
         autofocus
         placeholder="Search for a movie..."
-        class="ml-5"
+        :class="setMarginSearchField"
         v-model.trim="searchQuery"
         @input="getMovies">
       </v-text-field>
     </v-toolbar>
     <v-content>
-      <v-container grid-list-xl fluid v-if="movies.length !== 0">
+      <v-container grid-list-xl fluid>
         <v-layout row wrap >
-          <v-flex xs12 sm6 md3 v-for="movie of movies.data.results" :key="movie.id">
+          <v-flex xs12 sm6 md3 v-for="movie of getMoviesList()" :key="movie.id">
             <v-card color="#35495e" hover style="min-height: 652px">
               <v-img
-                :src="'http://image.tmdb.org/t/p/w400/' + movie.poster_path"
+                :src="'http://image.tmdb.org/t/p/w400/' + movie.poster_path || 'https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg'"
                 style="height: 500px"
               >
               </v-img>
               <v-card-title primary-title>
                 <div>
                   <h2 class="title">{{movie.title}}</h2>
+                  <div>
+                    <v-chip label v-for="genre of movie.genre_ids">{{genre}}</v-chip>
+                  </div>
                 </div>
               </v-card-title>
               <v-card-actions>
@@ -107,9 +110,7 @@
     <v-snackbar
       v-model="isVisible"
       color="#42b883"
-      :multi-line="mode === 'multi-line'"
-      :timeout="timeout"
-      :vertical="mode === 'vertical'"
+
     >
       Film has successfully added to favorite list
       <v-btn
@@ -124,32 +125,38 @@
 </template>
 
 <script>
-  import axios from 'axios'
-
   export default {
     data: () => ({
       drawer: false,
-      myAPI: '52217232f795bbefbb1b7c951aae98ad',
-      searchQuery: '',
-      movies: [],
-      isVisible: false
+      isVisible: false,
     }),
-    methods: {
-      getMovies () {
-        let query = encodeURI(this.searchQuery)
-        console.log(query)
-        if (query) {
-          axios
-            .get(`https://api.themoviedb.org/3/search/movie?api_key=${this.myAPI}&language=en-US&query=${query}&page=1&include_adult=false`)
-            .then(response => (this.movies = response))
-            .catch(error => console.log(error));
+    mounted () {},
+    computed: {
+      setMarginSearchField () {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return 'ml-2'
+          case 'sm': return 'ml-3'
+          case 'md': return 'ml-4'
+          case 'lg': return 'ml-5'
         }
-
+      },
+      searchQuery: {
+        get () {
+          return this.$store.state.searchQuery
+        },
+        set (value) {
+          this.$store.commit('updateQuery', value)
+        }
       }
     },
-    props: {
-      source: String
-    },
+    methods: {
+      getMovies () {
+        this.$store.dispatch('loadMovies')
+      },
+      getMoviesList () {
+        return this.$store.getters.getMoviesList
+      }
+    }
   }
 </script>
 
