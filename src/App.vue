@@ -63,13 +63,13 @@
         placeholder="Search for a movie..."
         :class="setMarginSearchField"
         v-model.trim="searchQuery"
-        @input="getMovies">
+        @input="getMoviesFromAPI">
       </v-text-field>
     </v-toolbar>
     <v-content>
-      <v-container grid-list-xl fluid>
+      <v-container grid-list-xl fluid v-if="searchQuery">
         <v-layout row wrap >
-          <v-flex xs12 sm6 md3 v-for="movie of getMoviesList()" :key="movie.id">
+          <v-flex xs12 sm6 md3 v-for="movie of getMoviesList" :key="movie.id">
             <v-card color="#35495e" hover style="min-height: 652px">
               <v-img
                 :src="'http://image.tmdb.org/t/p/w400/' + movie.poster_path || 'https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg'"
@@ -110,7 +110,6 @@
     <v-snackbar
       v-model="isVisible"
       color="#42b883"
-
     >
       Film has successfully added to favorite list
       <v-btn
@@ -147,15 +146,15 @@
         set (value) {
           this.$store.commit('updateQuery', value)
         }
+      },
+      getMoviesList () {
+        return this.$store.getters.getMoviesList.data.results
       }
     },
     methods: {
-      getMovies () {
-        this.$store.dispatch('loadMovies')
+      getMoviesFromAPI () {
+        this.$store.dispatch('getMoviesFromAPI')
       },
-      getMoviesList () {
-        return this.$store.getters.getMoviesList
-      }
     }
   }
 </script>

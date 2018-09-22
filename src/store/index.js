@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -11,26 +12,26 @@ export default new Vuex.Store({
   },
   mutations: {
     updateQuery (state, payload) {
-      state.searchQuery = payload
+      state.searchQuery = payload;
     },
 
-    saveMovies(state) {
-      const encodedSearchQuery = encodeURI(state.searchQuery);
-
-      axios
-        .get(`https://api.themoviedb.org/3/search/movie?api_key=${state.personalAPIKey}&language=en-US&query=${encodedSearchQuery}&page=1&include_adult=false`)
-        .then(response => (state.movies = response))
-        .catch(error => console.log(error));
+    saveMovies(state, payload) {
+      state.movies = payload;
     }
   },
   actions: {
-    loadMovies (context) {
-      context.commit('saveMovies')
+    getMoviesFromAPI ({ commit, state }) {
+      const encodedSearchQuery = encodeURI(state.searchQuery);
+      axios
+        .get(`https://api.themoviedb.org/3/search/movie?api_key=${state.personalAPIKey}&language=en-US&query=${encodedSearchQuery}&page=1&include_adult=false`)
+        .then((response) => commit('saveMovies', response))
+        .catch(error => console.log(error));
     }
   },
   getters: {
     getMoviesList (state) {
-      return state.movies.data.results
+      return state.movies;
     }
-  }
+  },
+  strict: process.env.NODE_ENV !== 'production'
 })
