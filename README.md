@@ -50,13 +50,45 @@
 <a href="https://gist.github.com/krambertech/ecb3890824fd7ada0f4ec1ff55125758" target="_blank">Открыть gist</a>
 
 ## Используемые технологии
-1. VueJs
-2. Vuex
-3. Vue Router
-4. Vuetify
-5. axios
 
-## Искал вдохновениние
+<table>
+  <thead>
+    <tr>
+      <th>Технология</th>
+      <th>Описание</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://ru.vuejs.org/index.html">Vue.js</a></td>
+      <td>Позже</td>
+    </tr>
+    <tr>
+      <td><a href="https://vuex.vuejs.org/ru/">Vuex</a></td>
+      <td>Позже</td>
+    </tr>
+     <tr>
+      <td><a href="https://router.vuejs.org/ru/">Vue Router</a></td>
+      <td>Позже</td>
+    </tr>
+     <tr>
+      <td><a href="https://vuetifyjs.com/ru/">Vuetify</a></td>
+      <td>Позже</td>
+    </tr>
+    <tr>
+      <td><a href="https://ru.vuejs.org/v2/cookbook/using-axios-to-consume-apis.html">axios</a></td>
+      <td>Позже</td>
+    </tr>
+  </tbody>
+</table>
+
+## Поддержка браузерами
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/yandex/yandex_48x48.png" alt="Yandex" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Yandex |
+| --------- | --------- | --------- | --------- |--------- | --------- |
+| IE11, Edge| Поддерживается| Поддерживается| Поддерживается 9+|Поддерживается| Поддерживается |
+
+## Искал вдохновение
 <a href='https://github.com/dmtrbrl/tmdb-app'>Тут</a> и <a href='https://github.com/SKempin/reactjs-tmdb-app'>тут</a>
 
 
