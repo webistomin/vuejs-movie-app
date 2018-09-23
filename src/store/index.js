@@ -11,6 +11,8 @@ export default new Vuex.Store({
     movies: [],
     genres: [],
     currentPage: 1,
+    favoriteMovies: [],
+    movieDetails: []
   },
   mutations: {
     updateQuery (state, payload) {
@@ -27,6 +29,10 @@ export default new Vuex.Store({
 
     updateCurrentPage (state, payload) {
       state.currentPage = payload;
+    },
+
+    saveDetails (state, payload) {
+      state.movieDetails = payload
     }
   },
   actions: {
@@ -51,6 +57,10 @@ export default new Vuex.Store({
 
     getTotalPages (state) {
       return state.movies.total_pages
+    },
+
+    getMovieDetails (state) {
+      return state.movieDetails
     }
   },
   strict: process.env.NODE_ENV !== 'production'

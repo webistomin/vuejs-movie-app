@@ -74,19 +74,6 @@
     <v-footer style="background-color: #42b883">
       <span>&copy; 2017</span>
     </v-footer>
-    <v-snackbar
-      v-model="isVisible"
-      color="#42b883"
-    >
-      Film has successfully added to favorite list
-      <v-btn
-        dark
-        flat
-        @click="isVisible = false"
-      >
-        Close
-      </v-btn>
-    </v-snackbar>
   </v-app>
 </template>
 
@@ -95,8 +82,7 @@
 
   export default {
     data: () => ({
-      drawer: false,
-      isVisible: false,
+      drawer: false
     }),
     mounted () {
       axios

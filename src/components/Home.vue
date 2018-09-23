@@ -6,12 +6,11 @@
                 v-for="movie of getMoviesList"
                 :key="movie.id"
         >
-          <v-card color="#35495e" hover style="min-height: 652px"
-                  :to="'/movie/' + movie.id">
+          <v-card color="#35495e" hover style="min-height: 652px" :to="'/movie/' + movie.id">
             <v-img
               :src="movie.poster_path ? `http://image.tmdb.org/t/p/w500/${movie.poster_path}` : `https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg`"
               style="height: 500px"
-            >
+              >
             </v-img>
             <v-card-title primary-title>
               <div>
@@ -29,9 +28,10 @@
                   fab
                   icon
                   color="#42b883"
-                  @click="isVisible = true"
+                  tag="button"
+                  @click.prevent="addToFavorite"
                 >
-                  <v-icon>favorite</v-icon>
+                  <v-icon ref="iconHeart">favorite_border</v-icon>
                 </v-btn>
                 <span>Add to favorite list</span>
               </v-tooltip>
@@ -52,16 +52,29 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <v-snackbar
+      v-model="isVisible"
+      color="#42b883"
+    >
+      Film has successfully added to favorite list
+      <v-btn
+        dark
+        flat
+        @click="isVisible = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
-
   export default {
     data () {
       return {
-
+        isVisible: false,
+        heartBordered: 'favorite_border',
+        heartFilled: 'favorite'
       }
     },
     computed: {
@@ -112,6 +125,9 @@
         } else {
           return ['none']
         }
+      },
+      addToFavorite (event) {
+        this.isVisible = true;
       }
     }
   }
