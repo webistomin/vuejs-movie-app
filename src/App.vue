@@ -75,7 +75,7 @@
           <v-flex xs12 sm6 md3 v-for="movie of getMoviesList" :key="movie.id">
             <v-card color="#35495e" hover style="min-height: 652px">
               <v-img
-                :src="'http://image.tmdb.org/t/p/w500/' + movie.poster_path || 'https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg'"
+                :src="movie.poster_path ? `http://image.tmdb.org/t/p/w500/${movie.poster_path}` : `https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg`"
                 style="height: 500px"
               >
               </v-img>
@@ -113,6 +113,7 @@
               class="flex-list"
               color="#42b883"
               total-visible="15"
+              @input="getMoviesFromAPI"
             ></v-pagination>
           </v-flex>
         </v-layout>
@@ -144,8 +145,6 @@
     data: () => ({
       drawer: false,
       isVisible: false,
-      currentPage: 1,
-
     }),
     mounted () {
       axios
@@ -168,7 +167,8 @@
           return this.$store.state.searchQuery
         },
         set (value) {
-          this.$store.commit('updateQuery', value)
+          this.$store.commit('updateCurrentPage', 1);
+          this.$store.commit('updateQuery', value);
         }
       },
       getMoviesList () {
@@ -179,11 +179,19 @@
       },
       getTotalPages () {
         return this.$store.getters.getTotalPages
+      },
+      currentPage: {
+        get () {
+          return this.$store.state.currentPage
+        },
+        set (value) {
+          this.$store.commit('updateCurrentPage', value)
+        }
       }
     },
     methods: {
       getMoviesFromAPI () {
-        this.$router.push('/');
+        // this.$router.push('/');
         this.$store.dispatch('getMoviesFromAPI')
       },
 

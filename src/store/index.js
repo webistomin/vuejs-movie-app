@@ -9,7 +9,8 @@ export default new Vuex.Store({
     personalAPIKey: '52217232f795bbefbb1b7c951aae98ad',
     searchQuery: '',
     movies: [],
-    genres: []
+    genres: [],
+    currentPage: 1,
   },
   mutations: {
     updateQuery (state, payload) {
@@ -22,16 +23,22 @@ export default new Vuex.Store({
 
     saveGenres(state, payload) {
       state.genres = payload
+    },
+
+    updateCurrentPage (state, payload) {
+      state.currentPage = payload;
     }
   },
   actions: {
     getMoviesFromAPI ({ commit, state }) {
-      const encodedSearchQuery = encodeURI(state.searchQuery);
-      axios
-        .get(`https://api.themoviedb.org/3/search/movie?api_key=${state.personalAPIKey}&language=en-US&query=${encodedSearchQuery}&page=1&include_adult=false`)
-        .then((response) => commit('saveMovies', response.data))
-        .catch(error => console.log(error));
-    }
+      if (state.searchQuery) {
+        const encodedSearchQuery = encodeURI(state.searchQuery);
+        axios
+          .get(`https://api.themoviedb.org/3/search/movie?api_key=${state.personalAPIKey}&language=en-US&query=${encodedSearchQuery}&page=${state.currentPage}&include_adult=true`)
+          .then((response) => commit('saveMovies', response.data))
+          .catch(error => console.log(error));
+      }
+      }
   },
   getters: {
     getMoviesList (state) {
