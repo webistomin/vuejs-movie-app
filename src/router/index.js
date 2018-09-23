@@ -6,6 +6,7 @@ import topRatedList from '@/components/TopRatedList'
 import upcomingList from '@/components/UpcomingList'
 import notFound from '@/components/NotFound'
 import home from '@/components/Home'
+import movie from '@/components/Movie'
 
 Vue.use(Router)
 
@@ -30,6 +31,10 @@ export default new Router({
     {
       path: '/upcoming-movies',
       component: upcomingList
+    },
+    {
+      path: '/movie/:id',
+      component: movie
     },
     {
       path: '*',
