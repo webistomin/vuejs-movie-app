@@ -40,6 +40,10 @@ export default new Vuex.Store({
 
     getGenresList (state) {
       return state.genres;
+    },
+
+    getTotalPages (state) {
+      return state.movies.total_pages
     }
   },
   strict: process.env.NODE_ENV !== 'production'

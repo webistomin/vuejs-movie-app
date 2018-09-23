@@ -6,7 +6,7 @@
       class="pt-5"
     >
       <v-list three-line>
-        <v-list-tile @click="" tabindex="0">
+        <v-list-tile active-class="link-active" @click="drawer = false" tabindex="0">
           <v-list-tile-action>
             <v-icon large>star_border</v-icon>
           </v-list-tile-action>
@@ -14,7 +14,7 @@
             <v-list-tile-title>Popular</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="drawer = false" to="/top-rated-movies">
+        <v-list-tile active-class="link-active" @click="drawer = false" to="/top-rated-movies">
           <v-list-tile-action>
             <v-icon large>trending_up</v-icon>
           </v-list-tile-action>
@@ -22,7 +22,7 @@
             <v-list-tile-title>Top rated</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="drawer = false" to="/upcoming-movies">
+        <v-list-tile active-class="link-active" @click="drawer = false" to="/upcoming-movies">
           <v-list-tile-action>
             <v-icon large>calendar_today</v-icon>
           </v-list-tile-action>
@@ -30,7 +30,7 @@
             <v-list-tile-title>Upcoming</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="drawer = false" to="/now-playing-movies">
+        <v-list-tile active-class="link-active" @click="drawer = false" to="/now-playing-movies">
           <v-list-tile-action>
             <v-icon large>play_circle_outline</v-icon>
           </v-list-tile-action>
@@ -38,7 +38,7 @@
             <v-list-tile-title>Now playing</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="drawer = false" to="/favorite-movies">
+        <v-list-tile active-class="link-active" @click="drawer = false" to="/favorite-movies">
           <v-list-tile-action>
             <v-icon large>favorite_border</v-icon>
           </v-list-tile-action>
@@ -50,7 +50,9 @@
     </v-navigation-drawer>
     <v-toolbar flat app fixed clipped-left prominent style="background-color: #42b883">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title class="hidden-sm-and-down">TMDb Movie App</v-toolbar-title>
+      <v-toolbar-title class="hidden-sm-and-down">
+        <router-link to="/" class="pointer" tag="h1">TMDb Movie App</router-link>
+      </v-toolbar-title>
       <v-text-field
         prepend-inner-icon="search"
         solo
@@ -102,6 +104,17 @@
               </v-card-actions>
             </v-card>
           </v-flex>
+          <v-flex xs12>
+            <v-pagination
+              v-model="currentPage"
+              :length="getTotalPages"
+              dark
+              style="width: 100%"
+              class="flex-list"
+              color="#42b883"
+              total-visible="15"
+            ></v-pagination>
+          </v-flex>
         </v-layout>
       </v-container>
     </v-content>
@@ -131,6 +144,8 @@
     data: () => ({
       drawer: false,
       isVisible: false,
+      currentPage: 1,
+
     }),
     mounted () {
       axios
@@ -161,6 +176,9 @@
       },
       getGenresList () {
         return this.$store.getters.getGenresList.genres
+      },
+      getTotalPages () {
+        return this.$store.getters.getTotalPages
       }
     },
     methods: {
@@ -200,4 +218,28 @@
     transform: scale(1.03);
     transition: transform 0.3s ease-in-out;
   }
+
+  .link-active {
+    color: #ffffff;
+    background-color: #42b883;
+  }
+
+  .pointer {
+    cursor: pointer;
+  }
+
+  .theme--dark.v-list .v-list__tile--link:hover {
+    color: #ffffff;
+    background-color: #42b883;
+  }
+
+  .theme--dark.v-list .v-list__tile--link:active {
+    opacity: 0.6;
+  }
+
+  .flex-list {
+    display: flex;
+    justify-content: center;
+  }
+
 </style>
