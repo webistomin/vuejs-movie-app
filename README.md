@@ -61,23 +61,23 @@
   <tbody>
     <tr>
       <td><a href="https://ru.vuejs.org/index.html">Vue.js</a></td>
-      <td>Позже</td>
+      <td>Основной фреймворк для разработки интерфейса приложения</td>
     </tr>
     <tr>
       <td><a href="https://vuex.vuejs.org/ru/">Vuex</a></td>
-      <td>Позже</td>
+      <td>Центральное хранилище данных для всех компонентов приложения</td>
     </tr>
      <tr>
       <td><a href="https://router.vuejs.org/ru/">Vue Router</a></td>
-      <td>Позже</td>
+      <td>Библиотека для маршрутизации</td>
     </tr>
      <tr>
       <td><a href="https://vuetifyjs.com/ru/">Vuetify</a></td>
-      <td>Позже</td>
+      <td>Фреймворк, предоставляющий набор компнентов UI в Material Design</td>
     </tr>
     <tr>
       <td><a href="https://ru.vuejs.org/v2/cookbook/using-axios-to-consume-apis.html">axios</a></td>
-      <td>Позже</td>
+      <td>Доступ к API, основанный на промисах HTTP-клиента</td>
     </tr>
   </tbody>
 </table>
