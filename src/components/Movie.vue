@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-xs-center mt-5" v-if="loading">
+    <div class="text-xs-center loader" v-if="loading">
       <v-progress-circular
         :size="150"
         :width="10"
@@ -13,7 +13,10 @@
         :src="getMovieDetails.backdrop_path ? `http://image.tmdb.org/t/p/original/${getMovieDetails.backdrop_path}` : `https://cdn.vuetifyjs.com/images/parallax/material.jpg`"
         height="300"
         class="movie-backdrop">
-        <div class="movie-tagline display-3">"{{getMovieDetails.tagline}}"</div>
+        <div v-if="getMovieDetails.tagline"
+             class="movie-tagline display-3">
+          "{{getMovieDetails.tagline}}"
+        </div>
       </v-img>
       <v-container grid-list-xl fluid>
         <v-layout row wrap>
@@ -22,37 +25,51 @@
                 <v-icon medium left>thumb_up</v-icon>
               {{getMovieDetails.vote_average}}
             </v-chip>
-            <h1 class="display-2 mb-3">{{getMovieDetails.title}}</h1>
-            <p class="headline mb-3">{{getMovieDetails.overview}}</p>
+            <h1 class="display-2 mb-3"
+                v-if="getMovieDetails.title">
+              {{getMovieDetails.title}}
+            </h1>
+            <p class="headline mb-3"
+               v-if="getMovieDetails.overview">
+              {{getMovieDetails.overview}}
+            </p>
             <v-chip class="title mb-3" label
                     v-for="genre of getCurrentGenres(getMovieDetails.genres)"
-                    :key="genre.id">{{genre}}
+                    :key="genre.id">
+              {{genre}}
             </v-chip>
-            <div class="headline block mb-2">
+            <div class="headline block mb-2"
+                 v-if="getMovieDetails.status">
               <span class="mb-3 option">Status:</span>
               <span class="value">{{getMovieDetails.status}}</span>
             </div>
-            <div class="headline block mb-2">
+            <div class="headline block mb-2"
+                 v-if="getMovieDetails.budget">
               <span class="mb-3 option">Budget:</span>
               <span class="value">{{getMovieDetails.budget}}$</span>
             </div>
-            <div class="headline block mb-2">
+            <div class="headline block mb-2"
+                 v-if="getMovieDetails.revenue">
               <span class="mb-3 option">Revenue:</span>
               <span class="value">{{getMovieDetails.revenue}}$</span>
             </div>
-            <div class="headline block mb-2">
+            <div class="headline block mb-2"
+                 v-if="getMovieDetails.production_countries[0].name">
               <span class="mb-3 option">Production country:</span>
               <span class="value ">{{getMovieDetails.production_countries[0].name}}</span>
             </div>
-            <div class="headline block mb-2">
+            <div class="headline block mb-2"
+                 v-if="getMovieDetails.release_date">
               <span class="mb-3 option">Release date:</span>
               <span class="value">{{getMovieDetails.release_date}}</span>
             </div>
-            <div class="headline block mb-2">
+            <div class="headline block mb-2"
+                 v-if="getMovieDetails.runtime">
               <span class="mb-3 option">Runtime:</span>
               <span class="value">{{getMovieDetails.runtime}} minutes</span>
             </div>
-            <v-container grid-list-xl fluid>
+            <v-container grid-list-xl fluid
+                         v-if="getSimilarMovies.length !== 0">
               <h2 class="display-1 mt-5">Similar movies</h2>
               <v-layout row wrap >
                 <v-flex xs12 sm6 md3
@@ -67,7 +84,9 @@
                     </v-img>
                     <v-card-title primary-title>
                       <div>
-                        <h2 class="subheading">{{similarMovie.title}}</h2>
+                        <h2 class="subheading"
+                            v-if="similarMovie.title">
+                          {{similarMovie.title}}</h2>
                         <div>
                           <v-chip class="caption" label v-for="genre of getCurrentGenresFromNumbers(similarMovie.genre_ids)" :key="genre.id">{{genre}}</v-chip>
                         </div>
@@ -93,7 +112,7 @@
                 </v-flex>
               </v-layout>
             </v-container>
-            <v-container grid-list-xl fluid>
+            <v-container grid-list-xl fluid v-if="getRecomendedMovies.length !== 0">
               <h2 class="display-1 mt-5">Recomended movies</h2>
               <v-layout row wrap >
                 <v-flex xs12 sm6 md3
@@ -108,7 +127,9 @@
                     </v-img>
                     <v-card-title primary-title>
                       <div>
-                        <h2 class="subheading">{{recomendedMovie.title}}</h2>
+                        <h2 class="subheading"
+                            v-if="recomendedMovie.title">
+                          {{recomendedMovie.title}}</h2>
                         <div>
                           <v-chip class="caption" label v-for="genre of getCurrentGenresFromNumbers(recomendedMovie.genre_ids)" :key="genre.id">{{genre}}</v-chip>
                         </div>
@@ -134,36 +155,32 @@
                 </v-flex>
               </v-layout>
             </v-container>
-            <v-snackbar
-              v-model="isVisible"
-              color="#42b883"
-            >
-              Film has successfully added to favorite list
-              <v-btn
-                dark
-                flat
-                @click="isVisible = false"
-              >
-                Close
-              </v-btn>
-            </v-snackbar>
           </v-flex>
         </v-layout>
       </v-container>
-
-
+      <v-snackbar
+        v-model="isVisible"
+        color="#42b883"
+      >
+        Film has successfully added to favorite list
+        <v-btn
+          dark
+          flat
+          @click="isVisible = false"
+        >
+          Close
+        </v-btn>
+      </v-snackbar>
     </div>
   </div>
 </template>
 
 <script>
-  import axios from 'axios'
-  import genres from "../store/genres";
-
   export default {
     data() {
       return {
         movieId: this.$route.params.id,
+        isVisible: false
       }
     },
     mounted() {
@@ -189,7 +206,7 @@
       }
     },
     methods: {
-      getCurrentGenres (arrayOfGenres) {
+     getCurrentGenres (arrayOfGenres) {
         const result = [];
         const genresList = this.$store.getters.getGenresList.genres;
 
@@ -234,6 +251,9 @@
         } else {
           return ['unknown']
         }
+      },
+      addToFavorite () {
+        this.isVisible = true;
       }
     }
   }
@@ -255,6 +275,7 @@
 
   .movie-backdrop {
     position: relative;
+    background: radial-gradient(at 30% top, rgba(7, 64, 52, 1) 0%, rgba(8, 28, 36, 1) 70%);
   }
 
   .movie-tagline {
@@ -268,5 +289,9 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .loader {
+    margin-top: 100px;
   }
 </style>

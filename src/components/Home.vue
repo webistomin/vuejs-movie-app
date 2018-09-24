@@ -1,6 +1,7 @@
 <template>
   <div>
-    <v-container grid-list-xl fluid v-if="searchQuery">
+    <h1 v-if="!searchQuery">Популярные</h1>
+    <v-container grid-list-xl fluid v-else>
       <v-layout row wrap >
         <v-flex xs12 sm6 md3
                 v-for="movie of getMoviesList"
