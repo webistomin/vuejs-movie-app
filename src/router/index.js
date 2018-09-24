@@ -34,12 +34,15 @@ export default new Router({
     },
     {
       path: '/movie/:id',
-      component: movie
+      component: movie,
     },
     {
       path: '*',
       component: notFound
     }
   ],
-  mode: 'history'
+  mode: 'history',
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 })

@@ -69,7 +69,7 @@
       </v-text-field>
     </v-toolbar>
     <v-content>
-      <router-view></router-view>
+      <router-view :key="$route.fullPath"></router-view>
     </v-content>
     <v-footer style="background-color: #42b883">
       <span>&copy; 2017</span>
