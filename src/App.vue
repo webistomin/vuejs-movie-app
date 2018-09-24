@@ -69,7 +69,9 @@
       </v-text-field>
     </v-toolbar>
     <v-content>
+      <transition name="fade" mode="out-in">
       <router-view :key="$route.fullPath"></router-view>
+      </transition>
     </v-content>
     <v-footer style="background-color: #42b883">
       <span>&copy; 2017</span>
@@ -180,6 +182,22 @@
   .flex-list {
     display: flex;
     justify-content: center;
+  }
+
+
+  .fade-enter {
+    opacity: 0;
+  }
+
+  .fade-enter-active {
+    transition: opacity 0.3s ease;
+  }
+
+  .fade-leave {}
+
+  .fade-leave-active {
+    transition: opacity 0.3s ease;
+    opacity: 0;
   }
 
 </style>

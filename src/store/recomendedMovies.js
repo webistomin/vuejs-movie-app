@@ -17,6 +17,7 @@ export default {
           commit('saveRecomendedMovies', response.data);
         })
         .catch(error => console.log(error))
+      commit('updateLoadingState', false)
     }
   },
   getters: {

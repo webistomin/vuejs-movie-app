@@ -22,7 +22,7 @@
         <v-layout row wrap>
           <v-flex xs12>
             <v-chip color="warning headline chip mb-3" text-color="white" disabled>
-                <v-icon medium left>thumb_up</v-icon>
+              <v-icon medium left>thumb_up</v-icon>
               {{getMovieDetails.vote_average}}
             </v-chip>
             <h1 class="display-2 mb-3"
@@ -71,7 +71,7 @@
             <v-container grid-list-xl fluid
                          v-if="getSimilarMovies.length !== 0">
               <h2 class="display-1 mt-5">Similar movies</h2>
-              <v-layout row wrap >
+              <v-layout row wrap>
                 <v-flex xs12 sm6 md3
                         v-for="similarMovie of getSimilarMovies.slice(0,4)"
                         :key="similarMovie.id"
@@ -88,7 +88,9 @@
                             v-if="similarMovie.title">
                           {{similarMovie.title}}</h2>
                         <div>
-                          <v-chip class="caption" label v-for="genre of getCurrentGenresFromNumbers(similarMovie.genre_ids)" :key="genre.id">{{genre}}</v-chip>
+                          <v-chip class="caption" label v-for="genre of getCurrentGenresFromNumbers(similarMovie.genre_ids)" :key="genre.id">
+                            {{genre}}
+                          </v-chip>
                         </div>
                       </div>
                     </v-card-title>
@@ -114,7 +116,7 @@
             </v-container>
             <v-container grid-list-xl fluid v-if="getRecomendedMovies.length !== 0">
               <h2 class="display-1 mt-5">Recomended movies</h2>
-              <v-layout row wrap >
+              <v-layout row wrap>
                 <v-flex xs12 sm6 md3
                         v-for="recomendedMovie of getRecomendedMovies.slice(0,4)"
                         :key="recomendedMovie.id"
@@ -131,7 +133,9 @@
                             v-if="recomendedMovie.title">
                           {{recomendedMovie.title}}</h2>
                         <div>
-                          <v-chip class="caption" label v-for="genre of getCurrentGenresFromNumbers(recomendedMovie.genre_ids)" :key="genre.id">{{genre}}</v-chip>
+                          <v-chip class="caption" label v-for="genre of getCurrentGenresFromNumbers(recomendedMovie.genre_ids)" :key="genre.id">
+                            {{genre}}
+                          </v-chip>
                         </div>
                       </div>
                     </v-card-title>
@@ -176,6 +180,7 @@
 </template>
 
 <script>
+
   export default {
     data() {
       return {
@@ -183,13 +188,12 @@
         isVisible: false
       }
     },
-    mounted() {
-      this.$store.dispatch('getAllGenresFromAPI');
+    async mounted() {
+      // this.$store.dispatch('getAllGenresFromAPI');
       this.$store.commit('saveMovieId', this.movieId);
       this.$store.dispatch('getMovieDetailsFromAPI');
       this.$store.dispatch('getSimilarMoviesFromAPI');
       this.$store.dispatch('getRecomendedMoviesFromAPI');
-      this.$store.commit('updateLoadingState', false);
     },
     computed: {
       getMovieDetails() {
@@ -206,7 +210,7 @@
       }
     },
     methods: {
-     getCurrentGenres (arrayOfGenres) {
+      getCurrentGenres(arrayOfGenres) {
         const result = [];
         const genresList = this.$store.getters.getGenresList.genres;
 
@@ -229,7 +233,7 @@
           return ['unknown']
         }
       },
-      getCurrentGenresFromNumbers (arrayOfGenres) {
+      getCurrentGenresFromNumbers(arrayOfGenres) {
         const result = [];
         const genresList = this.$store.getters.getGenresList.genres;
 
@@ -252,7 +256,7 @@
           return ['unknown']
         }
       },
-      addToFavorite () {
+      addToFavorite() {
         this.isVisible = true;
       }
     }
