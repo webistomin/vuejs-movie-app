@@ -50,47 +50,6 @@
               <span class="value">{{getMovieDetails.runtime}} minutes</span>
             </div>
             <h2 class="display-1 mt-5">Similar movies</h2>
-            <!--<v-flex xs12 sm6 md3 mt-5-->
-                    <!--v-for="similar of getSimilarMovies.slice(0,4)"-->
-                    <!--:key=similar.id>-->
-              <!--<v-card color="#35495e" hover style="min-height: 652px" :to="'/movie/' + similar.id">-->
-                <!--<v-img-->
-                  <!--:src="similar.poster_path ? `http://image.tmdb.org/t/p/w500/${similar.poster_path}` : `https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg`"-->
-                  <!--style="height: 500px"-->
-                <!--&gt;-->
-                <!--</v-img>-->
-                <!--<v-card-title primary-title>-->
-                  <!--<div>-->
-                    <!--<h2 class="subheading">{{similar.title}}</h2>-->
-                    <!--<div>-->
-                      <!--<v-chip class="caption" label v-for="genre of getCurrentGenres(movie.genre_ids)" :key="genre.id">{{genre}}</v-chip>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</v-card-title>-->
-                <!--<v-card-actions>-->
-                  <!--<v-tooltip right>-->
-                    <!--<v-btn-->
-                      <!--slot="activator"-->
-                      <!--flat-->
-                      <!--fab-->
-                      <!--icon-->
-                      <!--color="#42b883"-->
-                      <!--tag="button"-->
-                      <!--@click.prevent="addToFavorite"-->
-                    <!--&gt;-->
-                      <!--<v-icon ref="iconHeart">favorite_border</v-icon>-->
-                    <!--</v-btn>-->
-                    <!--<span>Add to favorite list</span>-->
-                  <!--</v-tooltip>-->
-                <!--</v-card-actions>-->
-              <!--</v-card>-->
-            <!--</v-flex>-->
-            <!--<v-flex xs12 mt-5>-->
-              <!--<h2 class="display-1">Recomendations</h2>-->
-              <!--<ul>-->
-                <!--<li v-for="similar of getSimilarMovies.slice(0,4)">{{similar.title}}</li>-->
-              <!--</ul>-->
-            <!--</v-flex>-->
           </v-flex>
         </v-layout>
       </v-container>
@@ -108,35 +67,19 @@
     data() {
       return {
         movieId: this.$route.params.id,
-        loading: false
       }
     },
     mounted() {
-      this.loading = true;
-      axios
-        .get(`https://api.themoviedb.org/3/movie/${this.movieId}?api_key=${this.$store.state.personalAPIKey}&language=en-US`)
-        .then((response) => {
-          this.$store.commit('saveDetails', response.data)
-        })
-        .catch(error => console.log(error))
-      axios
-        .get(`https://api.themoviedb.org/3/movie/${this.movieId}/similar?api_key=${this.$store.state.personalAPIKey}&language=en-US&page=1`)
-        .then((response) => {
-          this.$store.commit('saveSimilarMovies', response.data)
-          this.loading = false;
-        })
-        .catch(error => console.log(error))
+      this.$store.commit('saveMovieId', this.movieId);
+      this.$store.dispatch('getMovieDetailsFromAPI');
     },
     computed: {
       getMovieDetails() {
         console.log('Меня вызвали')
-        this.loading = false;
         return this.$store.getters.getMovieDetails
       },
-
-      getSimilarMovies() {
-        this.loading = false;
-        return this.$store.getters.getSimilarMovies.results
+      loading() {
+        return this.$store.getters.getLoadingState
       }
     },
     methods: {

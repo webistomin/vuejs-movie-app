@@ -46,7 +46,7 @@
             style="width: 100%"
             class="flex-list"
             color="#42b883"
-            total-visible="15"
+            total-visible="5"
             @input="getMoviesFromAPI"
           ></v-pagination>
         </v-flex>

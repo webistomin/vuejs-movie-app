@@ -3,7 +3,7 @@ export default {
     personalAPIKey: '52217232f795bbefbb1b7c951aae98ad',
     currentPage: 1,
     searchQuery: '',
-    loading: false
+    loading: true
   },
   mutations: {
     updateQuery (state, payload) {
@@ -12,8 +12,14 @@ export default {
     updateCurrentPage (state, payload) {
       state.currentPage = payload;
     },
-
+    updateLoadingState (state, payload) {
+      state.loading = payload;
+    }
   },
   actions: {},
-  getters: {}
+  getters: {
+    getLoadingState (state) {
+      return state.loading
+    }
+  }
 }

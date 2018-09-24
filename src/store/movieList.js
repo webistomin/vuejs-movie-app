@@ -8,14 +8,13 @@ export default {
     saveMovies(state, payload) {
       state.movies = payload;
     },
-
   },
   actions: {
-    getMoviesFromAPI ({ commit, state }) {
-      if (state.shared.searchQuery) {
-        const encodedSearchQuery = encodeURI(state.shared.searchQuery);
+    getMoviesFromAPI ({ commit, rootState}) {
+      if (rootState.shared.searchQuery) {
+        const encodedSearchQuery = encodeURI(rootState.shared.searchQuery);
         axios
-          .get(`https://api.themoviedb.org/3/search/movie?api_key=${state.shared.personalAPIKey}&language=en-US&query=${encodedSearchQuery}&page=${state.shared.currentPage}&include_adult=false`)
+          .get(`https://api.themoviedb.org/3/search/movie?api_key=${rootState.shared.personalAPIKey}&language=en-US&query=${encodedSearchQuery}&page=${rootState.shared.currentPage}&include_adult=false`)
           .then((response) => commit('saveMovies', response.data))
           .catch(error => console.log(error));
       }
