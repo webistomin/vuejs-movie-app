@@ -12,7 +12,8 @@ export default new Vuex.Store({
     genres: [],
     currentPage: 1,
     favoriteMovies: [],
-    movieDetails: []
+    movieDetails: [],
+    similarMovies: []
   },
   mutations: {
     updateQuery (state, payload) {
@@ -33,6 +34,10 @@ export default new Vuex.Store({
 
     saveDetails (state, payload) {
       state.movieDetails = payload
+    },
+
+    saveSimilarMovies (state, payload) {
+      state.similarMovies = payload
     }
   },
   actions: {
@@ -40,7 +45,7 @@ export default new Vuex.Store({
       if (state.searchQuery) {
         const encodedSearchQuery = encodeURI(state.searchQuery);
         axios
-          .get(`https://api.themoviedb.org/3/search/movie?api_key=${state.personalAPIKey}&language=en-US&query=${encodedSearchQuery}&page=${state.currentPage}&include_adult=true`)
+          .get(`https://api.themoviedb.org/3/search/movie?api_key=${state.personalAPIKey}&language=en-US&query=${encodedSearchQuery}&page=${state.currentPage}&include_adult=false`)
           .then((response) => commit('saveMovies', response.data))
           .catch(error => console.log(error));
       }
@@ -61,6 +66,10 @@ export default new Vuex.Store({
 
     getMovieDetails (state) {
       return state.movieDetails
+    },
+
+    getSimilarMovies (state) {
+      return state.similarMovies
     }
   },
   strict: process.env.NODE_ENV !== 'production'
