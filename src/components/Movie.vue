@@ -52,14 +52,107 @@
               <span class="mb-3 option">Runtime:</span>
               <span class="value">{{getMovieDetails.runtime}} minutes</span>
             </div>
-            <h2 class="display-1 mt-5">Similar movies</h2>
+            <v-container grid-list-xl fluid>
+              <h2 class="display-1 mt-5">Similar movies</h2>
+              <v-layout row wrap >
+                <v-flex xs12 sm6 md3
+                        v-for="similarMovie of getSimilarMovies.slice(0,4)"
+                        :key="similarMovie.id"
+                >
+                  <v-card color="#35495e" hover style="min-height: 652px" :to="'/movie/' + similarMovie.id">
+                    <v-img
+                      :src="similarMovie.poster_path ? `http://image.tmdb.org/t/p/w500/${similarMovie.poster_path}` : `https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg`"
+                      style="height: 500px"
+                    >
+                    </v-img>
+                    <v-card-title primary-title>
+                      <div>
+                        <h2 class="subheading">{{similarMovie.title}}</h2>
+                        <div>
+                          <v-chip class="caption" label v-for="genre of getCurrentGenresFromNumbers(similarMovie.genre_ids)" :key="genre.id">{{genre}}</v-chip>
+                        </div>
+                      </div>
+                    </v-card-title>
+                    <v-card-actions>
+                      <v-tooltip right>
+                        <v-btn
+                          slot="activator"
+                          flat
+                          fab
+                          icon
+                          color="#42b883"
+                          tag="button"
+                          @click.prevent="addToFavorite"
+                        >
+                          <v-icon ref="iconHeart">favorite_border</v-icon>
+                        </v-btn>
+                        <span>Add to favorite list</span>
+                      </v-tooltip>
+                    </v-card-actions>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+            </v-container>
+            <v-container grid-list-xl fluid>
+              <h2 class="display-1 mt-5">Recomended movies</h2>
+              <v-layout row wrap >
+                <v-flex xs12 sm6 md3
+                        v-for="recomendedMovie of getRecomendedMovies.slice(0,4)"
+                        :key="recomendedMovie.id"
+                >
+                  <v-card color="#35495e" hover style="min-height: 652px" :to="'/movie/' + recomendedMovie.id">
+                    <v-img
+                      :src="recomendedMovie.poster_path ? `http://image.tmdb.org/t/p/w500/${recomendedMovie.poster_path}` : `https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg`"
+                      style="height: 500px"
+                    >
+                    </v-img>
+                    <v-card-title primary-title>
+                      <div>
+                        <h2 class="subheading">{{recomendedMovie.title}}</h2>
+                        <div>
+                          <v-chip class="caption" label v-for="genre of getCurrentGenresFromNumbers(recomendedMovie.genre_ids)" :key="genre.id">{{genre}}</v-chip>
+                        </div>
+                      </div>
+                    </v-card-title>
+                    <v-card-actions>
+                      <v-tooltip right>
+                        <v-btn
+                          slot="activator"
+                          flat
+                          fab
+                          icon
+                          color="#42b883"
+                          tag="button"
+                          @click.prevent="addToFavorite"
+                        >
+                          <v-icon ref="iconHeart">favorite_border</v-icon>
+                        </v-btn>
+                        <span>Add to favorite list</span>
+                      </v-tooltip>
+                    </v-card-actions>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+            </v-container>
+            <v-snackbar
+              v-model="isVisible"
+              color="#42b883"
+            >
+              Film has successfully added to favorite list
+              <v-btn
+                dark
+                flat
+                @click="isVisible = false"
+              >
+                Close
+              </v-btn>
+            </v-snackbar>
           </v-flex>
         </v-layout>
       </v-container>
 
 
     </div>
-
   </div>
 </template>
 
@@ -74,9 +167,12 @@
       }
     },
     mounted() {
-      this.$store.dispatch('getAllGenresFromAPI')
+      this.$store.dispatch('getAllGenresFromAPI');
       this.$store.commit('saveMovieId', this.movieId);
       this.$store.dispatch('getMovieDetailsFromAPI');
+      this.$store.dispatch('getSimilarMoviesFromAPI');
+      this.$store.dispatch('getRecomendedMoviesFromAPI');
+      this.$store.commit('updateLoadingState', false);
     },
     computed: {
       getMovieDetails() {
@@ -84,6 +180,12 @@
       },
       loading() {
         return this.$store.getters.getLoadingState
+      },
+      getSimilarMovies() {
+        return this.$store.getters.getSimilarMovies
+      },
+      getRecomendedMovies() {
+        return this.$store.getters.getRecomendedMovies
       }
     },
     methods: {
@@ -91,10 +193,34 @@
         const result = [];
         const genresList = this.$store.getters.getGenresList.genres;
 
+        // временный косяк
         try {
           for (let i = 0; i < arrayOfGenres.length; i++) {
             for (let j = 0; j < genresList.length; j++) {
               if (arrayOfGenres[i].id === genresList[j].id) {
+                result.push(genresList[j].name)
+              }
+            }
+          }
+        } catch (error) {
+          return {}
+        }
+
+        if (result.length !== 0) {
+          return result
+        } else {
+          return ['unknown']
+        }
+      },
+      getCurrentGenresFromNumbers (arrayOfGenres) {
+        const result = [];
+        const genresList = this.$store.getters.getGenresList.genres;
+
+        // временный косяк
+        try {
+          for (let i = 0; i < arrayOfGenres.length; i++) {
+            for (let j = 0; j < genresList.length; j++) {
+              if (arrayOfGenres[i] === genresList[j].id) {
                 result.push(genresList[j].name)
               }
             }

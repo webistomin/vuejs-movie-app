@@ -5,7 +5,7 @@ import movieList from './movieList'
 import genres from './genres'
 import movieDetails from './movieDetails'
 import similarMovies from './similarMovies'
-import axios from 'axios'
+import recomendedMovies from './recomendedMovies'
 
 Vue.use(Vuex)
 
@@ -15,7 +15,8 @@ export default new Vuex.Store({
     movieList,
     genres,
     movieDetails,
-    similarMovies
+    similarMovies,
+    recomendedMovies
   },
   state: {},
   mutations: {},
