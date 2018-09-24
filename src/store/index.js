@@ -1,35 +1,28 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import shared from './shared'
 import axios from 'axios'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  modules: {
+    shared,
+  },
   state: {
-    personalAPIKey: '52217232f795bbefbb1b7c951aae98ad',
-    searchQuery: '',
     movies: [],
     genres: [],
-    currentPage: 1,
     favoriteMovies: [],
     movieDetails: [],
     similarMovies: []
   },
   mutations: {
-    updateQuery (state, payload) {
-      state.searchQuery = payload;
-    },
-
     saveMovies(state, payload) {
       state.movies = payload;
     },
 
     saveGenres(state, payload) {
       state.genres = payload
-    },
-
-    updateCurrentPage (state, payload) {
-      state.currentPage = payload;
     },
 
     saveDetails (state, payload) {
@@ -42,10 +35,10 @@ export default new Vuex.Store({
   },
   actions: {
     getMoviesFromAPI ({ commit, state }) {
-      if (state.searchQuery) {
-        const encodedSearchQuery = encodeURI(state.searchQuery);
+      if (state.shared.searchQuery) {
+        const encodedSearchQuery = encodeURI(state.shared.searchQuery);
         axios
-          .get(`https://api.themoviedb.org/3/search/movie?api_key=${state.personalAPIKey}&language=en-US&query=${encodedSearchQuery}&page=${state.currentPage}&include_adult=false`)
+          .get(`https://api.themoviedb.org/3/search/movie?api_key=${state.shared.personalAPIKey}&language=en-US&query=${encodedSearchQuery}&page=${state.shared.currentPage}&include_adult=false`)
           .then((response) => commit('saveMovies', response.data))
           .catch(error => console.log(error));
       }

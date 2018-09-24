@@ -80,7 +80,7 @@
     computed: {
       searchQuery: {
         get () {
-          return this.$store.state.searchQuery
+          return this.$store.state.shared.searchQuery
         },
         set (value) {
           this.$store.commit('updateCurrentPage', 1);
@@ -95,7 +95,7 @@
       },
       currentPage: {
         get () {
-          return this.$store.state.currentPage
+          return this.$store.state.shared.currentPage
         },
         set (value) {
           this.$store.commit('updateCurrentPage', value)

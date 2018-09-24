@@ -86,7 +86,7 @@
     }),
     mounted () {
       axios
-        .get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${this.$store.state.personalAPIKey}&language=en-US`)
+        .get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${this.$store.state.shared.personalAPIKey}&language=en-US`)
         .then((response) => this.$store.commit('saveGenres', response.data))
         .catch(error => console.log(error));
     },
@@ -102,7 +102,7 @@
       },
       searchQuery: {
         get () {
-          return this.$store.state.searchQuery
+          return this.$store.state.shared.searchQuery
         },
         set (value) {
           this.$store.commit('updateCurrentPage', 1);
