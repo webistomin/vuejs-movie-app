@@ -24,7 +24,10 @@
             </v-chip>
             <h1 class="display-2 mb-3">{{getMovieDetails.title}}</h1>
             <p class="headline mb-3">{{getMovieDetails.overview}}</p>
-            <v-chip class="title mb-3" label v-for="genre of getCurrentGenres(getMovieDetails.genres)" :key="genre.id">{{genre}}</v-chip>
+            <v-chip class="title mb-3" label
+                    v-for="genre of getCurrentGenres(getMovieDetails.genres)"
+                    :key="genre.id">{{genre}}
+            </v-chip>
             <div class="headline block mb-2">
               <span class="mb-3 option">Status:</span>
               <span class="value">{{getMovieDetails.status}}</span>
@@ -62,6 +65,7 @@
 
 <script>
   import axios from 'axios'
+  import genres from "../store/genres";
 
   export default {
     data() {
@@ -70,12 +74,12 @@
       }
     },
     mounted() {
+      this.$store.dispatch('getAllGenresFromAPI')
       this.$store.commit('saveMovieId', this.movieId);
       this.$store.dispatch('getMovieDetailsFromAPI');
     },
     computed: {
       getMovieDetails() {
-        console.log('Меня вызвали')
         return this.$store.getters.getMovieDetails
       },
       loading() {
@@ -87,18 +91,22 @@
         const result = [];
         const genresList = this.$store.getters.getGenresList.genres;
 
-        for (let j = 0; j < arrayOfGenres.length; j++) {
-          for (let i = 0; i < genresList.length; i++) {
-            if (arrayOfGenres[j].id === genresList[i].id) {
-              result.push(genresList[i].name)
+        try {
+          for (let i = 0; i < arrayOfGenres.length; i++) {
+            for (let j = 0; j < genresList.length; j++) {
+              if (arrayOfGenres[i].id === genresList[j].id) {
+                result.push(genresList[j].name)
+              }
             }
           }
+        } catch (error) {
+          return {}
         }
+
         if (result.length !== 0) {
-          console.log(result)
           return result
         } else {
-          return ['none']
+          return ['unknown']
         }
       }
     }

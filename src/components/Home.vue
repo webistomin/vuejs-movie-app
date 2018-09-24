@@ -123,7 +123,7 @@
         if (result.length !== 0) {
           return result
         } else {
-          return ['none']
+          return ['unknown']
         }
       },
       addToFavorite (event) {

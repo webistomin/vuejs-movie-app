@@ -85,10 +85,7 @@
       drawer: false
     }),
     mounted () {
-      axios
-        .get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${this.$store.state.shared.personalAPIKey}&language=en-US`)
-        .then((response) => this.$store.commit('saveGenres', response.data))
-        .catch(error => console.log(error));
+      this.$store.dispatch('getAllGenresFromAPI')
     },
     computed: {
       setMarginSearchField () {
@@ -145,7 +142,7 @@
         if (result.length !== 0) {
           return result
         } else {
-          return ['none']
+          return ['unknown']
         }
       }
     }
