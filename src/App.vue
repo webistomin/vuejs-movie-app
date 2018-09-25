@@ -7,6 +7,14 @@
       disable-resize-watcher
     >
       <v-list three-line>
+        <v-list-tile active-class="link-active" @click="drawer = false" to="/">
+          <v-list-tile-action>
+            <v-icon large>home</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Home</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
         <v-list-tile active-class="link-active" @click="drawer = false" to="/top-rated-movies">
           <v-list-tile-action>
             <v-icon large>trending_up</v-icon>

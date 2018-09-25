@@ -73,7 +73,7 @@
             </div>
             <v-container grid-list-xl fluid v-if="getMovieImages.length > 1">
               <v-layout row wrap>
-                <v-carousel>
+                <v-carousel cycle interval="5000">
                   <v-carousel-item
                     v-for="img in getMovieImages"
                     :key="img.file_path"
@@ -216,6 +216,7 @@
       next()
     },
     beforeRouteUpdate(to, from, next) {
+      this.$store.commit('updateLoadingState', true)
       this.$store.commit('saveMovieId', to.params.id);
       this.$store.dispatch('getMovieDetailsFromAPI');
       this.$store.dispatch('getSimilarMoviesFromAPI');
@@ -254,7 +255,6 @@
           }
         } catch (error) {
           console.log(error)
-          return {}
         }
 
 
@@ -267,7 +267,7 @@
       getCurrentGenresFromNumbers(arrayOfGenres) {
         const result = [];
         const genresList = this.$store.getters.getGenresList.genres;
-        // временный косяк
+
         try {
           for (let i = 0; i < arrayOfGenres.length; i++) {
             for (let j = 0; j < genresList.length; j++) {
@@ -277,10 +277,7 @@
             }
           }
         } catch (error) {
-          console.log(genresList)
-          console.log(result)
           console.log(error)
-          return 0
         }
 
         if (result.length !== 0) {
