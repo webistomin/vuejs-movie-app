@@ -9,7 +9,7 @@ import recomendedMovies from './recomendedMovies'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store =  new Vuex.Store({
   modules: {
     shared,
     movieList,
@@ -23,4 +23,6 @@ export default new Vuex.Store({
   actions: {},
   getters: {},
   strict: process.env.NODE_ENV !== 'production'
-})
+});
+
+export default store

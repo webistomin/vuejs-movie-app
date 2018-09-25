@@ -3,7 +3,7 @@ export default {
     personalAPIKey: '52217232f795bbefbb1b7c951aae98ad',
     currentPage: 1,
     searchQuery: '',
-    loading: true
+    loading: null
   },
   mutations: {
     updateQuery (state, payload) {

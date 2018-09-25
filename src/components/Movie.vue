@@ -180,6 +180,7 @@
 </template>
 
 <script>
+  import store from '../store/index'
 
   export default {
     data() {
@@ -188,12 +189,27 @@
         isVisible: false
       }
     },
-    async mounted() {
-      // this.$store.dispatch('getAllGenresFromAPI');
-      this.$store.commit('saveMovieId', this.movieId);
+    beforeRouteEnter(to, from, next) {
+      store.commit('updateLoadingState', true)
+      next(vm => {
+        store.commit('saveMovieId', vm.movieId);
+        store.dispatch('getMovieDetailsFromAPI');
+        store.dispatch('getSimilarMoviesFromAPI');
+        store.dispatch('getRecomendedMoviesFromAPI');
+      })
+    },
+    beforeRouteUpdate(to, from, next) {
+      this.$store.commit('saveMovieId', to.params.id);
       this.$store.dispatch('getMovieDetailsFromAPI');
       this.$store.dispatch('getSimilarMoviesFromAPI');
       this.$store.dispatch('getRecomendedMoviesFromAPI');
+      next()
+    },
+    mounted() {
+      // this.$store.commit('saveMovieId', this.$route.params.id);
+      // this.$store.dispatch('getMovieDetailsFromAPI');
+      // this.$store.dispatch('getSimilarMoviesFromAPI');
+      // this.$store.dispatch('getRecomendedMoviesFromAPI');
     },
     computed: {
       getMovieDetails() {
@@ -214,8 +230,7 @@
         const result = [];
         const genresList = this.$store.getters.getGenresList.genres;
 
-        // временный косяк
-        try {
+
           for (let i = 0; i < arrayOfGenres.length; i++) {
             for (let j = 0; j < genresList.length; j++) {
               if (arrayOfGenres[i].id === genresList[j].id) {
@@ -223,9 +238,6 @@
               }
             }
           }
-        } catch (error) {
-          return {}
-        }
 
         if (result.length !== 0) {
           return result
