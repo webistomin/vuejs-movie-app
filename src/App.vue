@@ -4,6 +4,7 @@
       v-model="drawer"
       fixed
       class="pt-5"
+      disable-resize-watcher
     >
       <v-list three-line>
         <v-list-tile active-class="link-active" @click="drawer = false" to="/top-rated-movies">

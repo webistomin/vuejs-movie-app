@@ -2,7 +2,7 @@
   <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap >
-        <h1 class="display-1 mb-5">Upcoming movies</h1>
+        <h1 class="display-1 mb-5 mt-5 text-xs-center page-title">Upcoming movies</h1>
         <v-layout row wrap >
           <v-flex xs12 sm6 md3
                   v-for="movie of getUpcomingMovies"
@@ -102,5 +102,11 @@
 </script>
 
 <style scoped>
+  .page-title {
+    width: 100%;
+  }
 
+  .container.grid-list-xl .layout:not(:only-child) {
+    margin: auto;
+  }
 </style>
