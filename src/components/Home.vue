@@ -1,6 +1,46 @@
 <template>
   <div>
-    <h1 v-if="!searchQuery">Популярные</h1>
+    <v-container grid-list-xl fluid v-if="!searchQuery">
+      <h1 class="display-1 mb-5">Popular movies</h1>
+      <v-layout row wrap >
+        <v-flex xs12 sm6 md3
+                v-for="movie of getPopularMovies"
+                :key="movie.id"
+        >
+          <v-card color="#35495e" hover style="min-height: 652px" :to="'/movie/' + movie.id">
+            <v-img
+              :src="movie.poster_path ? `http://image.tmdb.org/t/p/w500/${movie.poster_path}` : `https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg`"
+              style="height: 500px"
+            >
+            </v-img>
+            <v-card-title primary-title>
+              <div>
+                <h2 class="subheading">{{movie.title}}</h2>
+                <div>
+                  <v-chip class="caption" label v-for="genre of getCurrentGenres(movie.genre_ids)" :key="genre.id">{{genre}}</v-chip>
+                </div>
+              </div>
+            </v-card-title>
+            <v-card-actions>
+              <v-tooltip right>
+                <v-btn
+                  slot="activator"
+                  flat
+                  fab
+                  icon
+                  color="#42b883"
+                  tag="button"
+                  @click.prevent="addToFavorite"
+                >
+                  <v-icon ref="iconHeart">favorite_border</v-icon>
+                </v-btn>
+                <span>Add to favorite list</span>
+              </v-tooltip>
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
     <v-container grid-list-xl fluid v-else>
       <v-layout row wrap >
         <v-flex xs12 sm6 md3
@@ -78,6 +118,9 @@
         heartFilled: 'favorite'
       }
     },
+    mounted() {
+      this.$store.dispatch('getPopularMoviesFromAPI')
+    },
     computed: {
       searchQuery: {
         get () {
@@ -102,6 +145,9 @@
           this.$store.commit('updateCurrentPage', value)
         }
       },
+      getPopularMovies () {
+        return this.$store.getters.getPopularMovies
+      }
 
     },
     methods: {
