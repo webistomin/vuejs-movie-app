@@ -185,18 +185,18 @@
   export default {
     data() {
       return {
-        movieId: this.$route.params.id,
+        // movieId: this.$route.params.id,
         isVisible: false
       }
     },
     beforeRouteEnter(to, from, next) {
       store.commit('updateLoadingState', true)
-      next(vm => {
-        store.commit('saveMovieId', vm.movieId);
-        store.dispatch('getMovieDetailsFromAPI');
-        store.dispatch('getSimilarMoviesFromAPI');
-        store.dispatch('getRecomendedMoviesFromAPI');
-      })
+      store.commit('saveMovieId', to.params.id);
+      store.dispatch('getMovieDetailsFromAPI');
+      store.dispatch('getSimilarMoviesFromAPI');
+      store.dispatch('getRecomendedMoviesFromAPI');
+      store.commit('updateLoadingState', false)
+      next()
     },
     beforeRouteUpdate(to, from, next) {
       this.$store.commit('saveMovieId', to.params.id);
@@ -204,12 +204,6 @@
       this.$store.dispatch('getSimilarMoviesFromAPI');
       this.$store.dispatch('getRecomendedMoviesFromAPI');
       next()
-    },
-    mounted() {
-      // this.$store.commit('saveMovieId', this.$route.params.id);
-      // this.$store.dispatch('getMovieDetailsFromAPI');
-      // this.$store.dispatch('getSimilarMoviesFromAPI');
-      // this.$store.dispatch('getRecomendedMoviesFromAPI');
     },
     computed: {
       getMovieDetails() {
@@ -231,13 +225,13 @@
         const genresList = this.$store.getters.getGenresList.genres;
 
 
-          for (let i = 0; i < arrayOfGenres.length; i++) {
-            for (let j = 0; j < genresList.length; j++) {
-              if (arrayOfGenres[i].id === genresList[j].id) {
-                result.push(genresList[j].name)
-              }
+        for (let i = 0; i < arrayOfGenres.length; i++) {
+          for (let j = 0; j < genresList.length; j++) {
+            if (arrayOfGenres[i].id === genresList[j].id) {
+              result.push(genresList[j].name)
             }
           }
+        }
 
         if (result.length !== 0) {
           return result
@@ -245,6 +239,7 @@
           return ['unknown']
         }
       },
+
       getCurrentGenresFromNumbers(arrayOfGenres) {
         const result = [];
         const genresList = this.$store.getters.getGenresList.genres;

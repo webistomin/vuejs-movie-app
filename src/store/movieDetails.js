@@ -19,6 +19,7 @@ export default {
         .get(`https://api.themoviedb.org/3/movie/${state.movieId}?api_key=${rootState.shared.personalAPIKey}&language=en-US`)
         .then((response) => {
           commit('saveDetails', response.data);
+
         })
         .catch(error => console.log(error))
     }

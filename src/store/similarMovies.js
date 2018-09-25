@@ -11,10 +11,12 @@ export default {
   },
   actions: {
     getSimilarMoviesFromAPI ({commit, rootState}) {
+
       axios
         .get(`https://api.themoviedb.org/3/movie/${rootState.movieDetails.movieId}/similar?api_key=${rootState.shared.personalAPIKey}&language=en-US&page=1`)
         .then((response) => {
           commit('saveSimilarMovies', response.data);
+
         })
         .catch(error => console.log(error))
     }
