@@ -7,10 +7,13 @@ import movieDetails from './movieDetails'
 import similarMovies from './similarMovies'
 import recommendedMovies from './recommendedMovies'
 import popularMovies from './popularMovies'
+import upcomingMovies from './upcomingMovies'
+import topRatedMovies from './topRatedMovies'
+import nowPlayingMovies from './nowPlayingMovies'
 
 Vue.use(Vuex)
 
-const store =  new Vuex.Store({
+const store = new Vuex.Store({
   modules: {
     shared,
     movieList,
@@ -18,7 +21,10 @@ const store =  new Vuex.Store({
     movieDetails,
     similarMovies,
     recommendedMovies,
-    popularMovies
+    popularMovies,
+    upcomingMovies,
+    topRatedMovies,
+    nowPlayingMovies
   },
   state: {},
   mutations: {},
