@@ -11,7 +11,6 @@ export default {
   },
   actions: {
     getRecommendedMoviesFromAPI ({commit, rootState}) {
-
       axios
         .get(`https://api.themoviedb.org/3/movie/${rootState.movieDetails.movieId}/recommendations?api_key=${rootState.shared.personalAPIKey}&language=en-US&page=1`)
         .then((response) => {

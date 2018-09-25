@@ -71,7 +71,7 @@
               <span class="mb-3 option">Runtime:</span>
               <span class="value">{{getMovieDetails.runtime}} minutes</span>
             </div>
-            <v-container grid-list-xl fluid v-if="getMovieImages.length !== 0">
+            <v-container grid-list-xl fluid v-if="getMovieImages.length > 1">
               <v-layout row wrap>
                 <v-carousel>
                   <v-carousel-item
