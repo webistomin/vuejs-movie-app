@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container grid-list-xl fluid v-if="!searchQuery">
-      <h1 class="display-1 mb-5">Popular movies</h1>
+      <h1 class="display-1 mb-5 mt-5 text-xs-center page-title">Popular movies</h1>
       <v-layout row wrap >
         <v-flex xs12 sm6 md3
                 v-for="movie of getPopularMovies"
@@ -181,5 +181,11 @@
 </script>
 
 <style scoped>
+  .page-title {
+    width: 100%;
+  }
 
+  .container.grid-list-xl .layout:not(:only-child) {
+    margin: auto;
+  }
 </style>

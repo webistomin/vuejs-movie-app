@@ -33,11 +33,14 @@
                v-if="getMovieDetails.overview">
               {{getMovieDetails.overview}}
             </p>
-            <v-chip class="title mb-3" label
-                    v-for="genre of getCurrentGenres(getMovieDetails.genres)"
-                    :key="genre.id">
-              {{genre}}
-            </v-chip>
+            <div v-if="getMovieDetails.genres !== undefined">
+              <v-chip class="title mb-3"
+                      label
+                      v-for="genre of getCurrentGenres(getMovieDetails.genres)"
+                      :key="genre.id">
+                {{genre}}
+              </v-chip>
+            </div>
             <div class="headline block mb-2"
                  v-if="getMovieDetails.status">
               <span class="mb-3 option">Status:</span>
@@ -98,8 +101,12 @@
                         <h2 class="subheading"
                             v-if="similarMovie.title">
                           {{similarMovie.title}}</h2>
-                        <div>
-                          <v-chip class="caption" label v-for="genre of getCurrentGenresFromNumbers(similarMovie.genre_ids)" :key="genre.id">
+                        <div v-if="similarMovie.genre_ids.length !== undefined">
+                          <v-chip class="caption"
+                                  label
+                                  v-for="genre of getCurrentGenresFromNumbers(similarMovie.genre_ids)"
+                                  :key="genre.id"
+                                  >
                             {{genre}}
                           </v-chip>
                         </div>
@@ -126,7 +133,7 @@
               </v-layout>
             </v-container>
             <v-container grid-list-xl fluid v-if="getRecommendedMovies.length !== 0">
-              <h2 class="display-1 mt-5">Recomended movies</h2>
+              <h2 class="display-1 mt-5">Recommended movies</h2>
               <v-layout row wrap>
                 <v-flex xs12 sm6 md3
                         v-for="recomendedMovie of getRecommendedMovies.slice(0,4)"
@@ -143,7 +150,7 @@
                         <h2 class="subheading"
                             v-if="recomendedMovie.title">
                           {{recomendedMovie.title}}</h2>
-                        <div>
+                        <div v-if="recomendedMovie.genre_ids !== undefined">
                           <v-chip class="caption" label v-for="genre of getCurrentGenresFromNumbers(recomendedMovie.genre_ids)" :key="genre.id">
                             {{genre}}
                           </v-chip>
@@ -206,7 +213,6 @@
       store.dispatch('getMovieDetailsFromAPI');
       store.dispatch('getSimilarMoviesFromAPI');
       store.dispatch('getRecommendedMoviesFromAPI');
-      store.commit('updateLoadingState', false)
       next()
     },
     beforeRouteUpdate(to, from, next) {
@@ -231,21 +237,26 @@
       },
       getMovieImages () {
         return this.$store.getters.getMovieImages
-      }
+      },
     },
     methods: {
       getCurrentGenres(arrayOfGenres) {
         const result = [];
         const genresList = this.$store.getters.getGenresList.genres;
 
-
-        for (let i = 0; i < arrayOfGenres.length; i++) {
-          for (let j = 0; j < genresList.length; j++) {
-            if (arrayOfGenres[i].id === genresList[j].id) {
-              result.push(genresList[j].name)
+        try {
+          for (let i = 0; i < arrayOfGenres.length; i++) {
+            for (let j = 0; j < genresList.length; j++) {
+              if (arrayOfGenres[i].id === genresList[j].id) {
+                result.push(genresList[j].name)
+              }
             }
           }
+        } catch (error) {
+          console.log(error)
+          return {}
         }
+
 
         if (result.length !== 0) {
           return result
@@ -253,11 +264,9 @@
           return ['unknown']
         }
       },
-
       getCurrentGenresFromNumbers(arrayOfGenres) {
         const result = [];
         const genresList = this.$store.getters.getGenresList.genres;
-
         // временный косяк
         try {
           for (let i = 0; i < arrayOfGenres.length; i++) {
@@ -268,7 +277,10 @@
             }
           }
         } catch (error) {
-          return {}
+          console.log(genresList)
+          console.log(result)
+          console.log(error)
+          return 0
         }
 
         if (result.length !== 0) {

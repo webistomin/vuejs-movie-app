@@ -58,12 +58,12 @@
         placeholder="Search for a movie..."
         :class="setMarginSearchField"
         v-model.trim="searchQuery"
-        @input="getMoviesFromAPI">
+        @input="debouncedGetAnswer">
       </v-text-field>
     </v-toolbar>
     <v-content>
       <transition name="fade" mode="out-in">
-      <router-view :key="$route.fullPath"></router-view>
+        <router-view :key="$route.fullPath"></router-view>
       </transition>
     </v-content>
     <v-footer style="background-color: #42b883">
@@ -73,61 +73,69 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import _ from 'lodash'
 
   export default {
     data: () => ({
       drawer: false
     }),
-    mounted () {
+    mounted() {
       this.$store.dispatch('getAllGenresFromAPI')
     },
+    created: function () {
+      this.debouncedGetAnswer = _.debounce(this.getMoviesFromAPI, 500)
+    },
     computed: {
-      setMarginSearchField () {
+      setMarginSearchField() {
         switch (this.$vuetify.breakpoint.name) {
-          case 'xs': return 'ml-2'
-          case 'sm': return 'ml-3'
-          case 'md': return 'ml-4'
-          case 'lg': return 'ml-5'
-          case 'xl': return 'ml-5'
+          case 'xs':
+            return 'ml-2'
+          case 'sm':
+            return 'ml-3'
+          case 'md':
+            return 'ml-4'
+          case 'lg':
+            return 'ml-5'
+          case 'xl':
+            return 'ml-5'
         }
       },
       searchQuery: {
-        get () {
+        get() {
           return this.$store.state.shared.searchQuery
         },
-        set (value) {
+        set(value) {
           this.$store.commit('updateCurrentPage', 1);
           this.$store.commit('updateQuery', value);
         }
       },
-      getGenresList () {
+      getGenresList() {
         return this.$store.getters.getGenresList.genres
       },
-      getTotalPages () {
+      getTotalPages() {
         return this.$store.getters.getTotalPages
       },
       currentPage: {
-        get () {
+        get() {
           return this.$store.state.currentPage
         },
-        set (value) {
+        set(value) {
           this.$store.commit('updateCurrentPage', value)
         }
-      }
+      },
+
     },
     methods: {
-      getMoviesFromAPI () {
+      getMoviesFromAPI() {
         this.$router.push('/');
         this.$store.dispatch('getMoviesFromAPI')
       },
-
-      getCurrentGenres (arrayOfGenreIds) {
+      getCurrentGenres(arrayOfGenreIds) {
         const result = [];
         const genresList = this.$store.getters.getGenresList.genres;
 
         for (let j = 0; j < arrayOfGenreIds.length; j++) {
-           for (let i = 0; i < genresList.length; i++) {
+          for (let i = 0; i < genresList.length; i++) {
             if (arrayOfGenreIds[j] === genresList[i].id) {
               result.push(genresList[i].name)
             }
@@ -139,7 +147,7 @@
         } else {
           return ['unknown']
         }
-      }
+      },
     }
   }
 </script>
@@ -177,7 +185,6 @@
     justify-content: center;
   }
 
-
   .fade-enter {
     opacity: 0;
   }
@@ -186,7 +193,8 @@
     transition: opacity 0.3s ease;
   }
 
-  .fade-leave {}
+  .fade-leave {
+  }
 
   .fade-leave-active {
     transition: opacity 0.3s ease;
