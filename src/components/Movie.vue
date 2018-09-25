@@ -68,6 +68,18 @@
               <span class="mb-3 option">Runtime:</span>
               <span class="value">{{getMovieDetails.runtime}} minutes</span>
             </div>
+            <v-container grid-list-xl fluid v-if="getMovieImages">
+              <v-layout row wrap>
+                <v-flex xs12 sm6 md3 v-for="img in getMovieImages" :key="img.file_path">
+                  <v-img
+                    :src="img.file_path ? `http://image.tmdb.org/t/p/w500/${img.file_path}` : `https://cdn.vuetifyjs.com/images/parallax/material.jpg`"
+                    height="300"
+                    width="300"
+                  >
+                  </v-img>
+                </v-flex>
+              </v-layout>
+            </v-container>
             <v-container grid-list-xl fluid
                          v-if="getSimilarMovies.length !== 0">
               <h2 class="display-1 mt-5">Similar movies</h2>
@@ -217,6 +229,9 @@
       },
       getRecommendedMovies() {
         return this.$store.getters.getRecommendedMovies
+      },
+      getMovieImages () {
+        return this.$store.getters.getMovieImages
       }
     },
     methods: {
@@ -276,6 +291,10 @@
     justify-content: center;
     width: 120px;
     min-height: 50px;
+  }
+
+  .v-responsive {
+    max-width: 100%;
   }
 
   .option {
