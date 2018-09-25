@@ -10,6 +10,7 @@ import popularMovies from './popularMovies'
 import upcomingMovies from './upcomingMovies'
 import topRatedMovies from './topRatedMovies'
 import nowPlayingMovies from './nowPlayingMovies'
+import favoriteMovies from './favoriteMovies'
 
 Vue.use(Vuex)
 
@@ -24,7 +25,8 @@ const store = new Vuex.Store({
     popularMovies,
     upcomingMovies,
     topRatedMovies,
-    nowPlayingMovies
+    nowPlayingMovies,
+    favoriteMovies
   },
   state: {},
   mutations: {},

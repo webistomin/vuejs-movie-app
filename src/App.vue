@@ -209,4 +209,12 @@
     opacity: 0;
   }
 
+  .v-btn--floating .v-btn__content {
+    height: inherit;
+  }
+
+  .v-btn .v-btn__content .v-icon {
+    height: inherit;
+  }
+
 </style>

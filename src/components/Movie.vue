@@ -123,7 +123,7 @@
                           tag="button"
                           @click.prevent="addToFavorite"
                         >
-                          <v-icon ref="iconHeart">favorite_border</v-icon>
+                          <v-icon :data-id="similarMovie.id">favorite_border</v-icon>
                         </v-btn>
                         <span>Add to favorite list</span>
                       </v-tooltip>
@@ -168,7 +168,7 @@
                           tag="button"
                           @click.prevent="addToFavorite"
                         >
-                          <v-icon ref="iconHeart">favorite_border</v-icon>
+                          <v-icon :data-id="recomendedMovie.id">favorite_border</v-icon>
                         </v-btn>
                         <span>Add to favorite list</span>
                       </v-tooltip>
@@ -203,7 +203,6 @@
   export default {
     data() {
       return {
-        // movieId: this.$route.params.id,
         isVisible: false
       }
     },
@@ -286,14 +285,21 @@
           return ['unknown']
         }
       },
-      addToFavorite() {
-        this.isVisible = true;
+      addToFavorite(event) {
+        if (event.target.innerHTML === 'favorite_border') {
+          event.target.innerHTML = 'favorite';
+          this.isVisible = true;
+          this.$store.commit('addToFavoriteMoviesIdsList', event.target.dataset.id)
+        } else {
+          event.target.innerHTML = 'favorite_border';
+          this.$store.commit('removeFromFavoriteMoviesIdsList', event.target.dataset.id)
+        }
       }
     }
   }
 </script>
 
-<style scoped>
+<style>
   .chip {
     display: flex;
     justify-content: center;
@@ -331,5 +337,13 @@
 
   .loader {
     margin-top: 100px;
+  }
+
+  .v-btn--floating .v-btn__content {
+    height: inherit;
+  }
+
+  .v-btn .v-btn__content .v-icon {
+    height: inherit;
   }
 </style>

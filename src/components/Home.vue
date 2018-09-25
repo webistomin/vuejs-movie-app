@@ -32,7 +32,7 @@
                   tag="button"
                   @click.prevent="addToFavorite"
                 >
-                  <v-icon ref="iconHeart">favorite_border</v-icon>
+                  <v-icon :data-id="movie.id">favorite_border</v-icon>
                 </v-btn>
                 <span>Add to favorite list</span>
               </v-tooltip>
@@ -72,7 +72,7 @@
                   tag="button"
                   @click.prevent="addToFavorite"
                 >
-                  <v-icon ref="iconHeart">favorite_border</v-icon>
+                  <v-icon :data-id="movie.id">favorite_border</v-icon>
                 </v-btn>
                 <span>Add to favorite list</span>
               </v-tooltip>
@@ -173,19 +173,34 @@
           return ['unknown']
         }
       },
-      addToFavorite (event) {
-        this.isVisible = true;
+      addToFavorite(event) {
+        if (event.target.innerHTML === 'favorite_border') {
+          event.target.innerHTML = 'favorite';
+          this.isVisible = true;
+          this.$store.commit('addToFavoriteMoviesList', event.target.dataset.id)
+        } else {
+          event.target.innerHTML = 'favorite_border';
+          this.$store.commit('removeFromFavoriteMoviesList', event.target.dataset.id)
+        }
       }
     }
   }
 </script>
 
-<style scoped>
+<style>
   .page-title {
     width: 100%;
   }
 
   .container.grid-list-xl .layout:not(:only-child) {
     margin: auto;
+  }
+
+  .v-btn--floating .v-btn__content {
+    height: inherit;
+  }
+
+  .v-btn .v-btn__content .v-icon {
+    height: inherit;
   }
 </style>
