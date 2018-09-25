@@ -6,14 +6,6 @@
       class="pt-5"
     >
       <v-list three-line>
-        <v-list-tile active-class="link-active" @click="drawer = false" tabindex="0">
-          <v-list-tile-action>
-            <v-icon large>star_border</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Popular</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
         <v-list-tile active-class="link-active" @click="drawer = false" to="/top-rated-movies">
           <v-list-tile-action>
             <v-icon large>trending_up</v-icon>

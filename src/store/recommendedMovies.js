@@ -2,28 +2,28 @@ import axios from 'axios'
 
 export default {
   state: {
-    recomendedMovies: []
+    RecommendedMovies: []
   },
   mutations: {
-    saveRecomendedMovies (state, payload) {
-      state.recomendedMovies = payload
+    saveRecommendedMovies (state, payload) {
+      state.RecommendedMovies = payload
     }
   },
   actions: {
-    getRecomendedMoviesFromAPI ({commit, rootState}) {
+    getRecommendedMoviesFromAPI ({commit, rootState}) {
 
       axios
         .get(`https://api.themoviedb.org/3/movie/${rootState.movieDetails.movieId}/recommendations?api_key=${rootState.shared.personalAPIKey}&language=en-US&page=1`)
         .then((response) => {
-          commit('saveRecomendedMovies', response.data);
+          commit('saveRecommendedMovies', response.data);
 
         })
         .catch(error => console.log(error))
     }
   },
   getters: {
-    getRecomendedMovies (state) {
-      return state.recomendedMovies.results
+    getRecommendedMovies (state) {
+      return state.RecommendedMovies.results
     }
   }
 }

@@ -5,7 +5,7 @@ import movieList from './movieList'
 import genres from './genres'
 import movieDetails from './movieDetails'
 import similarMovies from './similarMovies'
-import recomendedMovies from './recomendedMovies'
+import recommendedMovies from './recommendedMovies'
 import popularMovies from './popularMovies'
 
 Vue.use(Vuex)
@@ -17,7 +17,7 @@ const store =  new Vuex.Store({
     genres,
     movieDetails,
     similarMovies,
-    recomendedMovies,
+    recommendedMovies,
     popularMovies
   },
   state: {},

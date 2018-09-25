@@ -114,11 +114,11 @@
                 </v-flex>
               </v-layout>
             </v-container>
-            <v-container grid-list-xl fluid v-if="getRecomendedMovies.length !== 0">
+            <v-container grid-list-xl fluid v-if="getRecommendedMovies.length !== 0">
               <h2 class="display-1 mt-5">Recomended movies</h2>
               <v-layout row wrap>
                 <v-flex xs12 sm6 md3
-                        v-for="recomendedMovie of getRecomendedMovies.slice(0,4)"
+                        v-for="recomendedMovie of getRecommendedMovies.slice(0,4)"
                         :key="recomendedMovie.id"
                 >
                   <v-card color="#35495e" hover style="min-height: 652px" :to="'/movie/' + recomendedMovie.id">
@@ -194,7 +194,7 @@
       store.commit('saveMovieId', to.params.id);
       store.dispatch('getMovieDetailsFromAPI');
       store.dispatch('getSimilarMoviesFromAPI');
-      store.dispatch('getRecomendedMoviesFromAPI');
+      store.dispatch('getRecommendedMoviesFromAPI');
       store.commit('updateLoadingState', false)
       next()
     },
@@ -202,7 +202,7 @@
       this.$store.commit('saveMovieId', to.params.id);
       this.$store.dispatch('getMovieDetailsFromAPI');
       this.$store.dispatch('getSimilarMoviesFromAPI');
-      this.$store.dispatch('getRecomendedMoviesFromAPI');
+      this.$store.dispatch('getRecommendedMoviesFromAPI');
       next()
     },
     computed: {
@@ -215,8 +215,8 @@
       getSimilarMovies() {
         return this.$store.getters.getSimilarMovies
       },
-      getRecomendedMovies() {
-        return this.$store.getters.getRecomendedMovies
+      getRecommendedMovies() {
+        return this.$store.getters.getRecommendedMovies
       }
     },
     methods: {
