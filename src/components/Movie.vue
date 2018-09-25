@@ -68,16 +68,15 @@
               <span class="mb-3 option">Runtime:</span>
               <span class="value">{{getMovieDetails.runtime}} minutes</span>
             </div>
-            <v-container grid-list-xl fluid v-if="getMovieImages">
+            <v-container grid-list-xl fluid v-if="getMovieImages.length !== 0">
               <v-layout row wrap>
-                <v-flex xs12 sm6 md3 v-for="img in getMovieImages" :key="img.file_path">
-                  <v-img
-                    :src="img.file_path ? `http://image.tmdb.org/t/p/w500/${img.file_path}` : `https://cdn.vuetifyjs.com/images/parallax/material.jpg`"
-                    height="300"
-                    width="300"
-                  >
-                  </v-img>
-                </v-flex>
+                <v-carousel>
+                  <v-carousel-item
+                    v-for="img in getMovieImages"
+                    :key="img.file_path"
+                    :src="img.file_path ? `http://image.tmdb.org/t/p/w1280/${img.file_path}` : `https://cdn.vuetifyjs.com/images/parallax/material.jpg`"
+                  ></v-carousel-item>
+                </v-carousel>
               </v-layout>
             </v-container>
             <v-container grid-list-xl fluid
