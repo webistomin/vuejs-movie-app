@@ -36,4 +36,8 @@
   .page-title {
     width: 100%;
   }
+
+  .container.grid-list-xl .layout:not(:only-child) {
+    margin: auto;
+  }
 </style>

@@ -12,7 +12,12 @@
           <div>
             <h2 class="subheading">{{itemName.title}}</h2>
             <div>
-              <v-chip class="caption" label v-for="genre of getCurrentGenres(itemName.genre_ids)" :key="genre.id">{{genre}}</v-chip>
+              <div v-if="itemName.genre_ids">
+                <v-chip  class="caption" label v-for="genre of getCurrentGenres(itemName.genre_ids)" :key="genre">{{genre}}</v-chip>
+              </div>
+              <div v-else>
+                <v-chip  class="caption" label v-for="genre of getCurrentGenres(itemName.genres)" :key="genre.id">{{genre}}</v-chip>
+              </div>
             </div>
           </div>
         </v-card-title>
@@ -67,16 +72,24 @@
         const result = [];
         const genresList = this.$store.getters.getGenresList.genres;
 
-        try {
-          for (let j = 0; j < arrayOfGenreIds.length; j++) {
-            for (let i = 0; i < genresList.length; i++) {
-              if (arrayOfGenreIds[j] === genresList[i].id) {
-                result.push(genresList[i].name)
+        if (typeof arrayOfGenreIds[0] === 'number') {
+            for (let j = 0; j < arrayOfGenreIds.length; j++) {
+              for (let i = 0; i < genresList.length; i++) {
+                if (arrayOfGenreIds[j] === genresList[i].id) {
+                  result.push(genresList[i].name)
+                }
               }
             }
-          }
-        } catch (error) {
-          console.log(error + 'ОШИБКА ТУТ 1')
+
+        } else {
+          console.log(arrayOfGenreIds)
+            for (let j = 0; j < arrayOfGenreIds.length; j++) {
+              for (let i = 0; i < genresList.length; i++) {
+                if (arrayOfGenreIds[j].id === genresList[i].id) {
+                  result.push(genresList[i].name)
+                }
+              }
+            }
         }
 
         if (result.length !== 0) {

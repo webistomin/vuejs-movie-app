@@ -218,4 +218,8 @@
   .loader {
     margin-top: 100px;
   }
+
+  .container.grid-list-xl .layout:not(:only-child) {
+    margin: auto;
+  }
 </style>

@@ -89,12 +89,4 @@
   .container.grid-list-xl .layout:not(:only-child) {
     margin: auto;
   }
-
-  .v-btn--floating .v-btn__content {
-    height: inherit;
-  }
-
-  .v-btn .v-btn__content .v-icon {
-    height: inherit;
-  }
 </style>
