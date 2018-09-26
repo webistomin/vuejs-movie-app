@@ -3,11 +3,11 @@
 
 [![Build status][travis-image]][travis-url] [![dependencies Status](https://david-dm.org/webistomin/vuejs-movie-app/status.svg)](https://david-dm.org/webistomin/vuejs-movie-app) [![Dependency status][dependency-image]][dependency-url] 
 
-При открытии приложения, отображается список популярных фильмов с пагинацией или динамической подгрузкой (на выбор). Также на странице должно быть располагается поле поиска. Когда ты вводишь туда какой-то текст, отображаются фильмы которые ему соответствуют. Для каждого фильма в списке отображается список жанров, к которым он принадлежит.
+При открытии приложения, отображается список популярных фильмов. Также на странице располагается поле поиска. Когда ты вводишь туда какой-то текст, отображаются фильмы которые ему соответствуют. Для каждого фильма в списке отображается список жанров, к которым он принадлежит.
 
 При клике на карточку с фильмом, показывается страница с детальной информацией об этом фильме и списком рекоммендованых или похожих фильмов к нему.
 
-Присутствует возможность добавлять фильмы в избранное как со списка, так и на странице с отдельным фильмом. Список таких фильмов сохраняется локально (localStorage). Список всех избранных фильмов можно увидеть на отдельной странице. Также избранный фильм помечается зведочкой
+Присутствует возможность добавлять фильмы в избранное как со списка, так и на странице с отдельным фильмом. Список таких фильмов сохраняется локально (localStorage). Список всех избранных фильмов можно увидеть на отдельной странице. Избранный фильм помечается заполненным сердечком
 
 <img src='example.gif'>
 
@@ -86,7 +86,7 @@
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/yandex/yandex_48x48.png" alt="Yandex" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Yandex |
 | --------- | --------- | --------- | --------- |--------- | --------- |
-| IE11, Edge| Поддерживается| Поддерживается| 9+ |Поддерживается| Поддерживается |
+| IE11, Edge|Последние 2 версии|Последние 2 версии| 9+ |Последние 2 версии| Последние 2 версии |
 
 ## Искал вдохновение
 <a href='https://github.com/dmtrbrl/tmdb-app'>Тут</a> и <a href='https://github.com/SKempin/reactjs-tmdb-app'>тут</a>
