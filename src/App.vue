@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app dark v-if="getGenresList">
     <v-navigation-drawer
       v-model="drawer"
       fixed
@@ -161,14 +161,6 @@
 </script>
 
 <style>
-  .v-card {
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .v-card:hover {
-    transform: scale(1.03);
-    transition: transform 0.3s ease-in-out;
-  }
 
   .link-active {
     color: #ffffff;

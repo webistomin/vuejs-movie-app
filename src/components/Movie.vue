@@ -166,7 +166,7 @@
             }
           }
         } catch (error) {
-          console.log(error + 'ОШИБКА ТУТ 1')
+          console.log(error)
         }
 
         if (result.length !== 0) {

@@ -1,5 +1,5 @@
 <template>
-    <v-flex xs12 sm6 md3
+    <v-flex xs12 sm6 md3 xl2
             :key="itemName.id"
     >
       <v-card color="#35495e" hover style="min-height: 652px" :to="'/movie/' + itemName.id">
@@ -13,10 +13,10 @@
             <h2 class="subheading">{{itemName.title}}</h2>
             <div>
               <div v-if="itemName.genre_ids">
-                <v-chip  class="caption" label v-for="genre of getCurrentGenres(itemName.genre_ids)" :key="genre">{{genre}}</v-chip>
+                <v-chip class="caption" label v-for="genre of getCurrentGenres(itemName.genre_ids)" :key="genre">{{genre}}</v-chip>
               </div>
               <div v-else>
-                <v-chip  class="caption" label v-for="genre of getCurrentGenres(itemName.genres)" :key="genre.id">{{genre}}</v-chip>
+                <v-chip class="caption" label v-for="genre of getCurrentGenres(itemName.genres)" :key="genre.id">{{genre}}</v-chip>
               </div>
             </div>
           </div>
@@ -82,7 +82,6 @@
             }
 
         } else {
-          console.log(arrayOfGenreIds)
             for (let j = 0; j < arrayOfGenreIds.length; j++) {
               for (let i = 0; i < genresList.length; i++) {
                 if (arrayOfGenreIds[j].id === genresList[i].id) {
@@ -113,6 +112,16 @@
 </script>
 
 <style scoped>
+  .v-card {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .v-card:hover,
+  .v-card:focus {
+    transform: scale(1.03);
+    transition: transform 0.3s ease-in-out;
+  }
+
   .v-btn--floating .v-btn__content {
     height: inherit;
   }
