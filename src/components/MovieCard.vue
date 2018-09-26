@@ -32,7 +32,7 @@
               tag="button"
               @click.prevent="addToFavorite"
             >
-              <v-icon :data-id="itemName.id">favorite_border</v-icon>
+              <v-icon :data-id="itemName.id">{{isFavorite(itemName.id)}}</v-icon>
             </v-btn>
             <span>Add to favorite list</span>
           </v-tooltip>
@@ -68,6 +68,16 @@
       }
     },
     methods: {
+      isFavorite(id) {
+        const favoriteIds = this.$store.getters.getFavoriteMoviesIds;
+        console.log(favoriteIds)
+        console.log(id)
+        if (favoriteIds.includes(String(id))) {
+          return 'favorite'
+        } else {
+          return 'favorite_border'
+        }
+      },
       getCurrentGenres(arrayOfGenreIds) {
         const result = [];
         const genresList = this.$store.getters.getGenresList.genres;
@@ -107,7 +117,7 @@
           this.$store.commit('removeFromFavoriteMoviesIdsList', event.target.dataset.id)
         }
       }
-    }
+    },
   }
 </script>
 

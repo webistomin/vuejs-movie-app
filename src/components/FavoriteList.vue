@@ -23,7 +23,6 @@
       MovieCard,
     },
     mounted() {
-      this.$store.commit('loadIdsFromLocalStorage');
       this.$store.dispatch('getFavoriteMoviesIdsFromAPI', this.getFavoriteMoviesIds)
     },
     computed: {

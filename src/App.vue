@@ -88,6 +88,7 @@
       drawer: false
     }),
     mounted() {
+      this.$store.commit('loadIdsFromLocalStorage');
       this.$store.dispatch('getAllGenresFromAPI')
     },
     created: function () {
