@@ -22,8 +22,13 @@
     components: {
       MovieCard,
     },
+    data () {
+      return {
+
+      }
+    },
     mounted() {
-      this.$store.dispatch('getFavoriteMoviesIdsFromAPI', this.getFavoriteMoviesIds)
+      this.$store.dispatch('getFavoriteMoviesIdsFromAPI')
     },
     computed: {
       getFavoriteMoviesIds() {

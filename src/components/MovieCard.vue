@@ -34,15 +34,16 @@
             >
               <v-icon :data-id="itemName.id">{{isFavorite(itemName.id)}}</v-icon>
             </v-btn>
-            <span>Add to favorite list</span>
+            <span>{{this.snackBarToolTipMsg}}</span>
           </v-tooltip>
         </v-card-actions>
       </v-card>
       <v-snackbar
         v-model="isVisible"
-        color="#42b883"
+        :color="snackBarColor"
+        dark
       >
-        Film has successfully added to favorite list
+        {{this.snackBarMsg}}
         <v-btn
           dark
           flat
@@ -65,16 +66,19 @@
     data () {
       return {
         isVisible: false,
+        snackBarMsg: '',
+        snackBarColor: '',
+        snackBarToolTipMsg: ''
       }
     },
     methods: {
       isFavorite(id) {
         const favoriteIds = this.$store.getters.getFavoriteMoviesIds;
-        console.log(favoriteIds)
-        console.log(id)
         if (favoriteIds.includes(String(id))) {
+          this.snackBarToolTipMsg = 'Remove from favorite list'
           return 'favorite'
         } else {
+          this.snackBarToolTipMsg = 'Add to favorite list'
           return 'favorite_border'
         }
       },
@@ -111,9 +115,14 @@
         if (event.target.innerHTML === 'favorite_border') {
           event.target.innerHTML = 'favorite';
           this.isVisible = true;
+          this.snackBarMsg = 'Film has been successfully added to favorite list';
+          this.snackBarColor = '#42b883'
           this.$store.commit('addToFavoriteMoviesIdsList', event.target.dataset.id)
         } else {
           event.target.innerHTML = 'favorite_border';
+          this.isVisible = true;
+          this.snackBarColor = '#FFDF00'
+          this.snackBarMsg = 'Film has been successfully removed from favorite list';
           this.$store.commit('removeFromFavoriteMoviesIdsList', event.target.dataset.id)
         }
       }

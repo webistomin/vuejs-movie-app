@@ -21,12 +21,16 @@ export default {
     saveFavoriteMoviesDetails (state, payload) {
       state.favoriteMoviesDetails.push(payload)
     },
+    clearMovieDetails (state, payload) {
+      state.favoriteMoviesDetails = payload
+    }
   },
   actions: {
-    async getFavoriteMoviesIdsFromAPI({commit, rootState}, payload) {
-      let arrayOfIds = String(payload).split(',');
+    getFavoriteMoviesIdsFromAPI({commit, rootState, state}) {
+      commit('clearMovieDetails', []);
+      let arrayOfIds = String(state.favoriteMoviesIds).split(',');
       for (let i = 0; i < arrayOfIds.length; i++) {
-        await axios
+        axios
           .get(`https://api.themoviedb.org/3/movie/${arrayOfIds[i]}?api_key=${rootState.shared.personalAPIKey}&language=en-US`)
           .then((response) => commit('saveFavoriteMoviesDetails', response.data))
           .catch(error => console.log(error));
