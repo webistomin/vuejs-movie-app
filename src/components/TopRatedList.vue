@@ -4,68 +4,22 @@
       <v-layout row wrap >
         <h1 class="display-1 mb-5 mt-5 text-xs-center page-title">Top rated movies</h1>
         <v-layout row wrap >
-          <v-flex xs12 sm6 md3
-                  v-for="movie of getTopRatedMovies"
-                  :key="movie.id"
-          >
-            <v-card color="#35495e" hover style="min-height: 652px" :to="'/movie/' + movie.id">
-              <v-img
-                :src="movie.poster_path ? `http://image.tmdb.org/t/p/w500/${movie.poster_path}` : `https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg`"
-                style="height: 500px"
-              >
-              </v-img>
-              <v-card-title primary-title>
-                <div>
-                  <h2 class="subheading">{{movie.title}}</h2>
-                  <div>
-                    <v-chip class="caption" label v-for="genre of getCurrentGenres(movie.genre_ids)" :key="genre.id">{{genre}}</v-chip>
-                  </div>
-                </div>
-              </v-card-title>
-              <v-card-actions>
-                <v-tooltip right>
-                  <v-btn
-                    slot="activator"
-                    flat
-                    fab
-                    icon
-                    color="#42b883"
-                    tag="button"
-                    @click.prevent="addToFavorite"
-                  >
-                    <v-icon :data-id="movie.id">favorite_border</v-icon>
-                  </v-btn>
-                  <span>Add to favorite list</span>
-                </v-tooltip>
-              </v-card-actions>
-            </v-card>
-          </v-flex>
+          <movie-card v-for="movie of getTopRatedMovies"
+                      :key="movie.id"
+                      :itemName="movie">
+          </movie-card>
         </v-layout>
       </v-layout>
     </v-container>
-    <v-snackbar
-      v-model="isVisible"
-      color="#42b883"
-    >
-      Film has successfully added to favorite list
-      <v-btn
-        dark
-        flat
-        @click="isVisible = false"
-      >
-        Close
-      </v-btn>
-    </v-snackbar>
-
   </div>
 </template>
 
 <script>
+  import MovieCard from './MovieCard'
+
   export default {
-    data () {
-      return {
-        isVisible: false
-      }
+    components: {
+      MovieCard,
     },
     mounted() {
       this.$store.dispatch('getTopRatedMoviesFromAPI')
@@ -74,36 +28,6 @@
       getTopRatedMovies () {
         return this.$store.getters.getTopRatedMovies
       }
-    },
-    methods: {
-      getCurrentGenres (arrayOfGenreIds) {
-        const result = [];
-        const genresList = this.$store.getters.getGenresList.genres;
-
-        for (let j = 0; j < arrayOfGenreIds.length; j++) {
-          for (let i = 0; i < genresList.length; i++) {
-            if (arrayOfGenreIds[j] === genresList[i].id) {
-              result.push(genresList[i].name)
-            }
-          }
-        }
-
-        if (result.length !== 0) {
-          return result
-        } else {
-          return ['unknown']
-        }
-      },
-      addToFavorite(event) {
-        if (event.target.innerHTML === 'favorite_border') {
-          event.target.innerHTML = 'favorite';
-          this.isVisible = true;
-          this.$store.commit('addToFavoriteMoviesList', event.target.dataset.id)
-        } else {
-          event.target.innerHTML = 'favorite_border';
-          this.$store.commit('removeFromFavoriteMoviesList', event.target.dataset.id)
-        }
-      }
     }
   }
 </script>
@@ -111,17 +35,5 @@
 <style>
   .page-title {
     width: 100%;
-  }
-
-  .container.grid-list-xl .layout:not(:only-child) {
-    margin: auto;
-  }
-
-  .v-btn--floating .v-btn__content {
-    height: inherit;
-  }
-
-  .v-btn .v-btn__content .v-icon {
-    height: inherit;
   }
 </style>

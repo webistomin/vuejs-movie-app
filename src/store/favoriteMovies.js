@@ -15,8 +15,8 @@ export default {
       state.favoriteMoviesIds.splice(index, 1);
       localStorage.setItem('favoriteMoviesIds', JSON.stringify(state.favoriteMoviesIds));
     },
-    loadIdsFromLocalStorage (state, payload) {
-      state.favoriteMoviesIds.push(payload)
+    loadIdsFromLocalStorage (state) {
+      state.favoriteMoviesIds =  JSON.parse(localStorage.getItem('favoriteMoviesIds'))
     },
     saveFavoriteMoviesDetails (state, payload) {
       state.favoriteMoviesDetails.push(payload)
@@ -26,7 +26,6 @@ export default {
     async getFavoriteMoviesIdsFromAPI({commit, rootState}, payload) {
       let arrayOfIds = String(payload).split(',');
       for (let i = 0; i < arrayOfIds.length; i++) {
-        console.log(arrayOfIds[i]);
         await axios
           .get(`https://api.themoviedb.org/3/movie/${arrayOfIds[i]}?api_key=${rootState.shared.personalAPIKey}&language=en-US`)
           .then((response) => commit('saveFavoriteMoviesDetails', response.data))

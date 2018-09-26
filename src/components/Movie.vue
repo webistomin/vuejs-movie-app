@@ -57,7 +57,7 @@
               <span class="value">{{getMovieDetails.revenue}}$</span>
             </div>
             <div class="headline block mb-2"
-                 v-if="getMovieDetails.production_countries[0].name">
+                 v-if="getMovieDetails.production_countries.length !== 0">
               <span class="mb-3 option">Production country:</span>
               <span class="value ">{{getMovieDetails.production_countries[0].name}}</span>
             </div>
@@ -86,132 +86,44 @@
                          v-if="getSimilarMovies.length !== 0">
               <h2 class="display-1 mt-5">Similar movies</h2>
               <v-layout row wrap>
-                <v-flex xs12 sm6 md3
-                        v-for="similarMovie of getSimilarMovies.slice(0,4)"
-                        :key="similarMovie.id"
-                >
-                  <v-card color="#35495e" hover style="min-height: 652px" :to="'/movie/' + similarMovie.id">
-                    <v-img
-                      :src="similarMovie.poster_path ? `http://image.tmdb.org/t/p/w500/${similarMovie.poster_path}` : `https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg`"
-                      style="height: 500px"
-                    >
-                    </v-img>
-                    <v-card-title primary-title>
-                      <div>
-                        <h2 class="subheading"
-                            v-if="similarMovie.title">
-                          {{similarMovie.title}}</h2>
-                        <div v-if="similarMovie.genre_ids.length !== undefined">
-                          <v-chip class="caption"
-                                  label
-                                  v-for="genre of getCurrentGenresFromNumbers(similarMovie.genre_ids)"
-                                  :key="genre.id"
-                                  >
-                            {{genre}}
-                          </v-chip>
-                        </div>
-                      </div>
-                    </v-card-title>
-                    <v-card-actions>
-                      <v-tooltip right>
-                        <v-btn
-                          slot="activator"
-                          flat
-                          fab
-                          icon
-                          color="#42b883"
-                          tag="button"
-                          @click.prevent="addToFavorite"
-                        >
-                          <v-icon :data-id="similarMovie.id">favorite_border</v-icon>
-                        </v-btn>
-                        <span>Add to favorite list</span>
-                      </v-tooltip>
-                    </v-card-actions>
-                  </v-card>
-                </v-flex>
+                <movie-card v-for="movie of getSimilarMovies.slice(0,4)"
+                            :key="movie.id"
+                            :itemName="movie">
+                </movie-card>
               </v-layout>
             </v-container>
-            <v-container grid-list-xl fluid v-if="getRecommendedMovies.length !== 0">
+            <v-container grid-list-xl fluid
+                         v-if="getRecommendedMovies.length !== 0">
               <h2 class="display-1 mt-5">Recommended movies</h2>
               <v-layout row wrap>
-                <v-flex xs12 sm6 md3
-                        v-for="recomendedMovie of getRecommendedMovies.slice(0,4)"
-                        :key="recomendedMovie.id"
-                >
-                  <v-card color="#35495e" hover style="min-height: 652px" :to="'/movie/' + recomendedMovie.id">
-                    <v-img
-                      :src="recomendedMovie.poster_path ? `http://image.tmdb.org/t/p/w500/${recomendedMovie.poster_path}` : `https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg`"
-                      style="height: 500px"
-                    >
-                    </v-img>
-                    <v-card-title primary-title>
-                      <div>
-                        <h2 class="subheading"
-                            v-if="recomendedMovie.title">
-                          {{recomendedMovie.title}}</h2>
-                        <div v-if="recomendedMovie.genre_ids !== undefined">
-                          <v-chip class="caption" label v-for="genre of getCurrentGenresFromNumbers(recomendedMovie.genre_ids)" :key="genre.id">
-                            {{genre}}
-                          </v-chip>
-                        </div>
-                      </div>
-                    </v-card-title>
-                    <v-card-actions>
-                      <v-tooltip right>
-                        <v-btn
-                          slot="activator"
-                          flat
-                          fab
-                          icon
-                          color="#42b883"
-                          tag="button"
-                          @click.prevent="addToFavorite"
-                        >
-                          <v-icon :data-id="recomendedMovie.id">favorite_border</v-icon>
-                        </v-btn>
-                        <span>Add to favorite list</span>
-                      </v-tooltip>
-                    </v-card-actions>
-                  </v-card>
-                </v-flex>
+                <movie-card v-for="movie of getRecommendedMovies.slice(0,4)"
+                            :key="movie.id"
+                            :itemName="movie">
+                </movie-card>
               </v-layout>
             </v-container>
           </v-flex>
         </v-layout>
       </v-container>
-      <v-snackbar
-        v-model="isVisible"
-        color="#42b883"
-      >
-        Film has successfully added to favorite list
-        <v-btn
-          dark
-          flat
-          @click="isVisible = false"
-        >
-          Close
-        </v-btn>
-      </v-snackbar>
     </div>
   </div>
 </template>
 
 <script>
   import store from '../store/index'
+  import MovieCard from './MovieCard'
 
   export default {
-    data() {
-      return {
-        isVisible: false
-      }
+    components: {
+      MovieCard,
     },
     beforeRouteEnter(to, from, next) {
       store.commit('updateLoadingState', true)
-      store.commit('saveMovieId', to.params.id);
-      store.dispatch('getMovieDetailsFromAPI');
-      store.dispatch('getSimilarMoviesFromAPI');
-      store.dispatch('getRecommendedMoviesFromAPI');
+      store.commit('saveMovieId', to.params.id)
+      store.dispatch('getMovieDetailsFromAPI')
+      store.dispatch('getSimilarMoviesFromAPI')
+      store.dispatch('getRecommendedMoviesFromAPI')
+      // store.commit('updateLoadingState', false)
       next()
     },
     beforeRouteUpdate(to, from, next) {
@@ -220,6 +132,7 @@
       this.$store.dispatch('getMovieDetailsFromAPI');
       this.$store.dispatch('getSimilarMoviesFromAPI');
       this.$store.dispatch('getRecommendedMoviesFromAPI');
+      store.commit('updateLoadingState', false)
       next()
     },
     computed: {
@@ -237,7 +150,7 @@
       },
       getMovieImages () {
         return this.$store.getters.getMovieImages
-      },
+      }
     },
     methods: {
       getCurrentGenres(arrayOfGenres) {
@@ -253,30 +166,7 @@
             }
           }
         } catch (error) {
-          console.log(error)
-        }
-
-
-        if (result.length !== 0) {
-          return result
-        } else {
-          return ['unknown']
-        }
-      },
-      getCurrentGenresFromNumbers(arrayOfGenres) {
-        const result = [];
-        const genresList = this.$store.getters.getGenresList.genres;
-
-        try {
-          for (let i = 0; i < arrayOfGenres.length; i++) {
-            for (let j = 0; j < genresList.length; j++) {
-              if (arrayOfGenres[i] === genresList[j].id) {
-                result.push(genresList[j].name)
-              }
-            }
-          }
-        } catch (error) {
-          console.log(error)
+          console.log(error + 'ОШИБКА ТУТ 1')
         }
 
         if (result.length !== 0) {
@@ -285,16 +175,6 @@
           return ['unknown']
         }
       },
-      addToFavorite(event) {
-        if (event.target.innerHTML === 'favorite_border') {
-          event.target.innerHTML = 'favorite';
-          this.isVisible = true;
-          this.$store.commit('addToFavoriteMoviesIdsList', event.target.dataset.id)
-        } else {
-          event.target.innerHTML = 'favorite_border';
-          this.$store.commit('removeFromFavoriteMoviesIdsList', event.target.dataset.id)
-        }
-      }
     }
   }
 </script>
@@ -337,13 +217,5 @@
 
   .loader {
     margin-top: 100px;
-  }
-
-  .v-btn--floating .v-btn__content {
-    height: inherit;
-  }
-
-  .v-btn .v-btn__content .v-icon {
-    height: inherit;
   }
 </style>

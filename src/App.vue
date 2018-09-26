@@ -75,7 +75,7 @@
       </transition>
     </v-content>
     <v-footer style="background-color: #42b883">
-      <span>&copy; 2017</span>
+      <a class="copyright" href="https://github.com/webistomin/vuejs-movie-app">TMDb Movie App &copy; 2018</a>
     </v-footer>
   </v-app>
 </template>
@@ -215,6 +215,13 @@
 
   .v-btn .v-btn__content .v-icon {
     height: inherit;
+  }
+
+  .copyright {
+    width: 100%;
+    text-align: center;
+    color: #ffffff;
+    text-decoration: none;
   }
 
 </style>

@@ -1,39 +1,48 @@
 <template>
   <div>
-    <h1>СПИКО ИЗБРАННОГО</h1>
-    <div v-for="movie of getFavoriteMoviesDetails">
-      {{movie.title}}
-    </div>
+    <v-container grid-list-xl fluid>
+      <v-layout row wrap>
+        <h1 class="display-1 mb-5 mt-5 text-xs-center page-title">Favorite movies</h1>
+        <v-layout row wrap>
+          <movie-card v-for="movie of getFavoriteMoviesDetails"
+                      :key="movie.id"
+                      :itemName="movie">
+          </movie-card>
+        </v-layout>
+      </v-layout>
+    </v-container>
+
   </div>
 </template>
 
 <script>
+  import MovieCard from './MovieCard'
+
   export default {
-    data () {
-      return {
-      }
+    components: {
+      MovieCard,
     },
     mounted() {
-      this.$store.commit('loadIdsFromLocalStorage', JSON.parse(localStorage.getItem('favoriteMoviesIds')))
+      this.$store.commit('loadIdsFromLocalStorage');
       this.$store.dispatch('getFavoriteMoviesIdsFromAPI', this.getFavoriteMoviesIds)
     },
     computed: {
-      getFavoriteMoviesIds () {
+      getFavoriteMoviesIds() {
         return this.$store.getters.getFavoriteMoviesIds
       },
-      getFavoriteMoviesDetails () {
+      getFavoriteMoviesDetails() {
         return this.$store.getters.getFavoriteMoviesDetails
-      }
+      },
     }
   }
 </script>
 
 <style>
-  .v-btn--floating .v-btn__content {
-    height: inherit;
+  .page-title {
+    width: 100%;
   }
 
-  .v-btn .v-btn__content .v-icon {
-    height: inherit;
+  .container.grid-list-xl .layout:not(:only-child) {
+    margin: auto;
   }
 </style>
