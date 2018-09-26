@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eef53348-1ec4-4fd0-9c1b-32d0fb3e2aff" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="eef53348-1ec4-4fd0-9c1b-32d0fb3e2aff" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -58,7 +56,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="97" />
+          <entry key="html" value="136" />
           <entry key="js" value="5034" />
           <entry key="json" value="20" />
           <entry key="md" value="129" />
@@ -68,7 +66,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="97" />
+          <entry key="HTML" value="136" />
           <entry key="JSON" value="20" />
           <entry key="JavaScript" value="5035" />
           <entry key="Markdown" value="129" />
@@ -84,8 +82,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret column="2117" selection-start-column="2117" selection-end-column="2117" />
+            <state relative-caret-position="323">
+              <caret column="1751" selection-start-column="1751" selection-end-column="1751" />
             </state>
           </provider>
         </entry>
@@ -102,7 +100,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>length</find>
       <find>getRecomendedMovies</find>
       <find>getRecomen</find>
       <find>Popular</find>
@@ -132,6 +129,7 @@
       <find>console.lo</find>
       <find>consol</find>
       <find>console</find>
+      <find>href=/</find>
     </findStrings>
     <replaceStrings>
       <replace>headline</replace>
@@ -193,7 +191,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-8" />
     <option name="width" value="1371" />
     <option name="height" value="744" />
@@ -255,15 +253,15 @@
       <workItem from="1537680331551" duration="7170000" />
       <workItem from="1537690668199" duration="15055000" />
       <workItem from="1537764737224" duration="58789000" />
-      <workItem from="1537951402877" duration="21573000" />
+      <workItem from="1537951402877" duration="21908000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="137815000" />
+    <option name="totallyTimeSpent" value="138150000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
@@ -620,8 +618,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret column="2117" selection-start-column="2117" selection-end-column="2117" />
+        <state relative-caret-position="323">
+          <caret column="1751" selection-start-column="1751" selection-end-column="1751" />
         </state>
       </provider>
     </entry>
