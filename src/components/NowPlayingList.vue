@@ -10,7 +10,7 @@
     </div>
     <v-container v-else grid-list-xl fluid>
       <v-layout row wrap >
-        <h1 class="display-1 mb-5 mt-5 text-xs-center page-title">Now playing movies</h1>
+        <h1 class="page-title" :class="[getTitleFontSize, getTitleMargin]">Now playing movies</h1>
         <v-layout row wrap >
           <movie-card v-for="movie of getNowPlayingMovies"
                       :key="movie.id"
@@ -43,6 +43,24 @@
       isLoading() {
         return this.$store.getters.getLoadingState
       },
+      getTitleFontSize () {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return 'subheading'
+          case 'sm': return 'title'
+          case 'md': return 'headline'
+          case 'lg': return 'display-1'
+          case 'xl': return 'display-2'
+        }
+      },
+      getTitleMargin () {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return 'mt-1 mb-1'
+          case 'sm': return 'mt-2 mb-2'
+          case 'md': return 'mt-3 mb-3'
+          case 'lg': return 'mt-4 mb-4'
+          case 'xl': return 'mt-5 mb-5'
+        }
+      },
     }
   }
 </script>
@@ -50,6 +68,8 @@
 <style>
   .page-title {
     width: 100%;
+    text-transform: uppercase;
+    text-align: center;
   }
 
   .container.grid-list-xl .layout:not(:only-child) {

@@ -23,7 +23,7 @@
             style="width: 100%"
             class="flex-list"
             color="#42b883"
-            total-visible="5"
+            :total-visible="getTotalVisiblePages"
             @input="getMoviesFromAPI"
           ></v-pagination>
         </v-flex>
@@ -89,6 +89,15 @@
           case 'md': return 'mt-3 mb-3'
           case 'lg': return 'mt-3 mb-4'
           case 'xl': return 'mt-5 mb-5'
+        }
+      },
+      getTotalVisiblePages () {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return 5
+          case 'sm': return 7
+          case 'md': return 10
+          case 'lg': return 15
+          case 'xl': return 20
         }
       }
     },

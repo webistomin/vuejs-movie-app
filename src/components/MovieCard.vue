@@ -74,7 +74,7 @@
     methods: {
       isFavorite(id) {
         const favoriteIds = this.$store.getters.getFavoriteMoviesIds;
-        if (favoriteIds && favoriteIds.includes(String(id))) {
+        if (favoriteIds.includes(String(id))) {
           this.snackBarToolTipMsg = 'Remove from favorite list'
           return 'favorite'
         } else {

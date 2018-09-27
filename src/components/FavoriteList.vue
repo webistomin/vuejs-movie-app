@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="display-1 mb-5 mt-5 text-xs-center page-title" v-if="getFavoriteMoviesIds.length === 0">No favorite movies yet</h1>
+    <h1 v-if="getFavoriteMoviesIds.length === 0" class="page-title" :class="[getTitleFontSize, getTitleMargin]">No favorite movies yet</h1>
     <div class="text-xs-center loader" v-else-if="isLoading">
       <v-progress-circular
         :size="150"
@@ -46,7 +46,25 @@
       },
       isLoading() {
         return this.$store.getters.getLoadingState
-      }
+      },
+      getTitleFontSize () {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return 'subheading'
+          case 'sm': return 'title'
+          case 'md': return 'headline'
+          case 'lg': return 'display-1'
+          case 'xl': return 'display-2'
+        }
+      },
+      getTitleMargin () {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs': return 'mt-1 mb-1'
+          case 'sm': return 'mt-2 mb-2'
+          case 'md': return 'mt-3 mb-3'
+          case 'lg': return 'mt-4 mb-4'
+          case 'xl': return 'mt-5 mb-5'
+        }
+      },
     }
   }
 </script>
@@ -59,6 +77,7 @@
   .page-title {
     width: 100%;
     text-transform: uppercase;
+    text-align: center;
   }
 
   .container.grid-list-xl .layout:not(:only-child) {
