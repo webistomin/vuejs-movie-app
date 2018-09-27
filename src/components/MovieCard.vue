@@ -4,7 +4,7 @@
   >
     <v-card color="#35495e" hover class="movie-card" :to="'/movie/' + itemName.id">
       <v-img
-        :src="itemName.poster_path ? `http://image.tmdb.org/t/p/w500/${itemName.poster_path}` : `https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg`"
+        :src="itemName.poster_path ? `http://image.tmdb.org/t/p/${getImageSize}/${itemName.poster_path}` : `https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg`"
         class="card-image"
       >
       </v-img>
@@ -140,6 +140,20 @@
             return 'mt-3 mb-4'
           case 'xl':
             return 'mt-5 mb-5'
+        }
+      },
+      getImageSize() {
+        switch (this.$vuetify.breakpoint.name) {
+          case 'xs':
+            return 'w300'
+          case 'sm':
+            return 'w300'
+          case 'md':
+            return 'w300'
+          case 'lg':
+            return 'w500'
+          case 'xl':
+            return 'w780'
         }
       }
     }

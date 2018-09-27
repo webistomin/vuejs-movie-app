@@ -19,15 +19,19 @@
         </v-layout>
       </v-layout>
     </v-container>
+    <error-message></error-message>
+
   </div>
 </template>
 
 <script>
   import MovieCard from './MovieCard'
+  import ErrorMessage from './ErrorMessage'
 
   export default {
     components: {
       MovieCard,
+      ErrorMessage
     },
     mounted() {
       this.$store.commit('updateLoadingState', true)
