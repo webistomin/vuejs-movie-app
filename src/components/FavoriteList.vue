@@ -1,6 +1,14 @@
 <template>
   <div>
-    <v-container grid-list-xl fluid>
+    <div class="text-xs-center loader" v-if="loading">
+      <v-progress-circular
+        :size="150"
+        :width="10"
+        color="#42b883"
+        indeterminate
+      ></v-progress-circular>
+    </div>
+    <v-container v-else grid-list-xl fluid>
       <v-layout row wrap>
         <h1 class="display-1 mb-5 mt-5 text-xs-center page-title">Favorite movies</h1>
         <v-layout row wrap>
@@ -11,7 +19,6 @@
         </v-layout>
       </v-layout>
     </v-container>
-
   </div>
 </template>
 
@@ -28,6 +35,7 @@
       }
     },
     mounted() {
+      this.$store.commit('updateLoadingState', true)
       this.$store.dispatch('getFavoriteMoviesIdsFromAPI')
     },
     computed: {
@@ -36,6 +44,9 @@
       },
       getFavoriteMoviesDetails() {
         return this.$store.getters.getFavoriteMoviesDetails
+      },
+      loading() {
+        return this.$store.getters.getLoadingState
       },
     }
   }

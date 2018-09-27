@@ -32,7 +32,10 @@ export default {
       for (let i = 0; i < arrayOfIds.length; i++) {
         axios
           .get(`https://api.themoviedb.org/3/movie/${arrayOfIds[i]}?api_key=${rootState.shared.personalAPIKey}&language=en-US`)
-          .then((response) => commit('saveFavoriteMoviesDetails', response.data))
+          .then((response) => {
+            commit('updateLoadingState', false)
+            commit('saveFavoriteMoviesDetails', response.data)
+          })
           .catch(error => console.log(error));
       }
     }

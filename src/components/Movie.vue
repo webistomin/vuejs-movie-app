@@ -117,12 +117,19 @@
     components: {
       MovieCard,
     },
-    beforeRouteEnter(to, from, next) {
+    async beforeRouteEnter(to, from, next) {
       store.commit('updateLoadingState', true)
       store.commit('saveMovieId', to.params.id)
       store.dispatch('getMovieDetailsFromAPI')
-      store.dispatch('getSimilarMoviesFromAPI')
-      store.dispatch('getRecommendedMoviesFromAPI')
+        .then(() => {
+          store.dispatch('getSimilarMoviesFromAPI')
+            .then(() => {
+              store.dispatch('getRecommendedMoviesFromAPI')
+                .then(() => {
+                  store.commit('updateLoadingState', false)
+                })
+            })
+        })
       // store.commit('updateLoadingState', false)
       next()
     },

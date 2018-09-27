@@ -1,6 +1,14 @@
 <template>
   <div>
-    <v-container grid-list-xl fluid>
+    <div class="text-xs-center loader" v-if="loading">
+      <v-progress-circular
+        :size="150"
+        :width="10"
+        color="#42b883"
+        indeterminate
+      ></v-progress-circular>
+    </div>
+    <v-container v-else grid-list-xl fluid>
       <v-layout row wrap >
         <h1 class="display-1 mb-5 mt-5 text-xs-center page-title">Upcoming movies</h1>
         <v-layout row wrap >
@@ -22,12 +30,16 @@
       MovieCard,
     },
     mounted() {
+      this.$store.commit('updateLoadingState', true)
       this.$store.dispatch('getUpcomingMoviesFromAPI')
     },
     computed: {
       getUpcomingMovies () {
         return this.$store.getters.getUpcomingMovies
-      }
+      },
+      loading() {
+        return this.$store.getters.getLoadingState
+      },
     }
   }
 </script>

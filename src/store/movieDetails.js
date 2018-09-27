@@ -18,14 +18,14 @@ export default {
     }
   },
   actions: {
-    getMovieDetailsFromAPI ({commit, rootState, state}) {
-      axios
+    async getMovieDetailsFromAPI ({commit, rootState, state}) {
+      await axios
         .get(`https://api.themoviedb.org/3/movie/${state.movieId}?api_key=${rootState.shared.personalAPIKey}&language=en-US`)
         .then((response) => {
           commit('saveDetails', response.data);
         })
         .catch(error => console.log(error))
-      axios
+      await axios
         .get(`https://api.themoviedb.org/3/movie/${state.movieId}/images?api_key=${rootState.shared.personalAPIKey}&language=en-US&include_image_language=en%2Cnull`)
         .then((response) => {
           commit('saveMovieImages', response.data);

@@ -10,14 +10,15 @@ export default {
     }
   },
   actions: {
-    getRecommendedMoviesFromAPI({commit, rootState}) {
-      axios
+    async getRecommendedMoviesFromAPI({commit, rootState}) {
+     await axios
         .get(`https://api.themoviedb.org/3/movie/${rootState.movieDetails.movieId}/recommendations?api_key=${rootState.shared.personalAPIKey}&language=en-US&page=1`)
         .then((response) => {
           // Искусственная задержка на время
-          setTimeout(() => {
-            commit('updateLoadingState', false)
-          }, 1000);
+          // setTimeout(() => {
+          //  commit('updateLoadingState', false)
+          // }, 1000);
+          // commit('updateLoadingState', false)
           commit('saveRecommendedMovies', response.data);
         })
         .catch(error => console.log(error))

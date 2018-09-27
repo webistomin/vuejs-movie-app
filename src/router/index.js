@@ -7,7 +7,6 @@ import upcomingList from '@/components/UpcomingList'
 import notFound from '@/components/NotFound'
 import home from '@/components/Home'
 import movie from '@/components/Movie'
-import store from '../store/index'
 
 Vue.use(Router)
 

@@ -14,6 +14,7 @@ export default {
       axios
         .get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${rootState.shared.personalAPIKey}&language=en-US&page=1`)
         .then((response) => {
+          commit('updateLoadingState', false)
           commit('saveTopRatedMovies', response.data);
         })
         .catch(error => console.log(error))
