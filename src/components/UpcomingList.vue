@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-xs-center loader" v-if="loading">
+    <div class="text-xs-center loader" v-if="isLoading">
       <v-progress-circular
         :size="150"
         :width="10"
@@ -37,7 +37,7 @@
       getUpcomingMovies () {
         return this.$store.getters.getUpcomingMovies
       },
-      loading() {
+      isLoading() {
         return this.$store.getters.getLoadingState
       },
     }

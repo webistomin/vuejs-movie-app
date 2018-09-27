@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-xs-center loader" v-if="loading">
+    <div class="text-xs-center loader" v-if="isLoading">
       <v-progress-circular
         :size="150"
         :width="10"
@@ -117,7 +117,7 @@
     components: {
       MovieCard,
     },
-    async beforeRouteEnter(to, from, next) {
+    beforeRouteEnter(to, from, next) {
       store.commit('updateLoadingState', true)
       store.commit('saveMovieId', to.params.id)
       store.dispatch('getMovieDetailsFromAPI')
@@ -136,17 +136,23 @@
     beforeRouteUpdate(to, from, next) {
       this.$store.commit('updateLoadingState', true)
       this.$store.commit('saveMovieId', to.params.id);
-      this.$store.dispatch('getMovieDetailsFromAPI');
-      this.$store.dispatch('getSimilarMoviesFromAPI');
-      this.$store.dispatch('getRecommendedMoviesFromAPI');
-      store.commit('updateLoadingState', false)
+      this.$store.dispatch('getMovieDetailsFromAPI')
+        .then(() => {
+          this.$store.dispatch('getSimilarMoviesFromAPI')
+            .then(() => {
+              this.$store.dispatch('getRecommendedMoviesFromAPI')
+                .then(() => {
+                  this.$store.commit('updateLoadingState', false)
+                })
+            })
+        })
       next()
     },
     computed: {
       getMovieDetails() {
         return this.$store.getters.getMovieDetails
       },
-      loading() {
+      isLoading() {
         return this.$store.getters.getLoadingState
       },
       getSimilarMovies() {
