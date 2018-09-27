@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div class="text-xs-center loader" v-if="isLoading">
+    <h1 class="display-1 mb-5 mt-5 text-xs-center page-title" v-if="getFavoriteMoviesIds.length === 0">No favorite movies yet</h1>
+    <div class="text-xs-center loader" v-else-if="isLoading">
       <v-progress-circular
         :size="150"
         :width="10"
@@ -51,13 +52,13 @@
 </script>
 
 <style>
-
   .loader {
     margin-top: 100px;
   }
 
   .page-title {
     width: 100%;
+    text-transform: uppercase;
   }
 
   .container.grid-list-xl .layout:not(:only-child) {
