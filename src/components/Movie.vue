@@ -5,8 +5,8 @@
         :size="150"
         :width="10"
         color="#42b883"
-        indeterminate
-      ></v-progress-circular>
+        indeterminate>
+      </v-progress-circular>
     </div>
     <div v-else>
       <v-img
@@ -41,44 +41,46 @@
                 {{genre}}
               </v-chip>
             </div>
-            <div class="headline block mb-2"
+            <div class="title block mb-3"
                  v-if="getMovieDetails.status">
               <span class="mb-3 option">Status:</span>
               <span class="value">{{getMovieDetails.status}}</span>
             </div>
-            <div class="headline block mb-2"
+            <div class="title block mb-3"
                  v-if="getMovieDetails.budget">
               <span class="mb-3 option">Budget:</span>
               <span class="value">{{getMovieDetails.budget}}$</span>
             </div>
-            <div class="headline block mb-2"
+            <div class="title block mb-3"
                  v-if="getMovieDetails.revenue">
               <span class="mb-3 option">Revenue:</span>
               <span class="value">{{getMovieDetails.revenue}}$</span>
             </div>
-            <div class="headline block mb-2"
+            <div class="title block mb-3"
                  v-if="getMovieDetails.production_countries.length !== 0">
               <span class="mb-3 option">Production country:</span>
               <span class="value ">{{getMovieDetails.production_countries[0].name}}</span>
             </div>
-            <div class="headline block mb-2"
+            <div class="title block mb-3"
                  v-if="getMovieDetails.release_date">
               <span class="mb-3 option">Release date:</span>
               <span class="value">{{getMovieDetails.release_date}}</span>
             </div>
-            <div class="headline block mb-2"
+            <div class="title block mb-3"
                  v-if="getMovieDetails.runtime">
               <span class="mb-3 option">Runtime:</span>
               <span class="value">{{getMovieDetails.runtime}} minutes</span>
             </div>
-            <v-container grid-list-xl fluid v-if="getMovieImages.length > 1">
+            <v-container grid-list-xl fluid
+                         v-if="getMovieImages.length > 1">
               <v-layout row wrap>
-                <v-carousel cycle interval="5000">
+                <v-carousel cycle
+                            interval="5000">
                   <v-carousel-item
                     v-for="img in getMovieImages"
                     :key="img.file_path"
-                    :src="img.file_path ? `http://image.tmdb.org/t/p/w1280/${img.file_path}` : `https://cdn.vuetifyjs.com/images/parallax/material.jpg`"
-                  ></v-carousel-item>
+                    :src="img.file_path ? `http://image.tmdb.org/t/p/w1280/${img.file_path}` : `https://cdn.vuetifyjs.com/images/parallax/material.jpg`">
+                  </v-carousel-item>
                 </v-carousel>
               </v-layout>
             </v-container>
@@ -106,16 +108,19 @@
         </v-layout>
       </v-container>
     </div>
+    <error-message></error-message>
   </div>
 </template>
 
 <script>
   import store from '../store/index'
   import MovieCard from './MovieCard'
+  import ErrorMessage from './ErrorMessage'
 
   export default {
     components: {
       MovieCard,
+      ErrorMessage
     },
     beforeRouteEnter(to, from, next) {
       store.commit('updateLoadingState', true)
@@ -135,7 +140,7 @@
     },
     beforeRouteUpdate(to, from, next) {
       this.$store.commit('updateLoadingState', true)
-      this.$store.commit('saveMovieId', to.params.id);
+      this.$store.commit('saveMovieId', to.params.id)
       this.$store.dispatch('getMovieDetailsFromAPI')
         .then(() => {
           this.$store.dispatch('getSimilarMoviesFromAPI')
@@ -167,8 +172,8 @@
     },
     methods: {
       getCurrentGenres(arrayOfGenres) {
-        const result = [];
-        const genresList = this.$store.getters.getGenresList.genres;
+        const result = []
+        const genresList = this.$store.getters.getGenresList.genres
 
         try {
           for (let i = 0; i < arrayOfGenres.length; i++) {

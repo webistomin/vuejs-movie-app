@@ -17,7 +17,11 @@ export default {
           commit('updateLoadingState', false)
           commit('saveUpcomingMovies', response.data);
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+          commit('setErrorMessage', error.message)
+          commit('setErrorVisibility', true)
+          throw error
+        });
     }
   },
   getters: {

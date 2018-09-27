@@ -14,7 +14,11 @@ export default {
       axios
         .get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${rootState.shared.personalAPIKey}&language=en-US`)
         .then((response) => commit('saveGenres', response.data))
-        .catch(error => console.log(error));
+        .catch(error => {
+          commit('setErrorMessage', error.message)
+          commit('setErrorVisibility', true)
+          throw error
+        });
     }
   },
   getters: {

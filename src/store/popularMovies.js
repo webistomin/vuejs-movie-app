@@ -16,7 +16,11 @@ export default {
         .then((response) => {
           commit('savePopularMovies', response.data);
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+          commit('setErrorMessage', error.message)
+          commit('setErrorVisibility', true)
+          throw error
+        });
     }
   },
   getters: {
