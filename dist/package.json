@@ -5,7 +5,6 @@
   "author": "webistomin <webistomin@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config webpack.dev.conf.js",
     "postinstall": "npm run build",
     "start": "node server.js"
   },
