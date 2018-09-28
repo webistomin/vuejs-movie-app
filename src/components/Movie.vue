@@ -49,17 +49,12 @@
             <div class="title block mb-3"
                  v-if="getMovieDetails.budget">
               <span class="mb-3 option">Budget:</span>
-              <span class="value">{{getMovieDetails.budget}}$</span>
+              <span class="value">${{getMovieDetails.budget | getFormatedPrice}}</span>
             </div>
             <div class="title block mb-3"
                  v-if="getMovieDetails.revenue">
               <span class="mb-3 option">Revenue:</span>
-              <span class="value">{{getMovieDetails.revenue}}$</span>
-            </div>
-            <div class="title block mb-3"
-                 v-if="getMovieDetails.production_countries.length !== 0">
-              <span class="mb-3 option">Production country:</span>
-              <span class="value ">{{getMovieDetails.production_countries[0].name}}</span>
+              <span class="value">${{getMovieDetails.revenue | getFormatedPrice}}</span>
             </div>
             <div class="title block mb-3"
                  v-if="getMovieDetails.release_date">
@@ -70,6 +65,21 @@
                  v-if="getMovieDetails.runtime">
               <span class="mb-3 option">Runtime:</span>
               <span class="value">{{getMovieDetails.runtime}} minutes</span>
+            </div>
+            <div class="title block mb-3"
+                 v-if="getMovieDetails.production_countries.length !== 0">
+              <span class="mb-3 option">Production country:</span>
+              <span class="value ">{{getMovieDetails.production_countries[0].name}}</span>
+            </div>
+            <div class="title block mb-3"
+                 v-if="getMovieDetails.popularity">
+              <span class="mb-3 option">Popularity:</span>
+              <span class="value ">{{getMovieDetails.popularity}}</span>
+            </div>
+            <div class="title block mb-3"
+                 v-if="getMovieDetails.spoken_languages.length !== 0">
+              <span class="mb-3 option">Spoken languages:</span>
+              <span class="value ">{{getMovieDetails.spoken_languages[0].name}}</span>
             </div>
             <v-container grid-list-xl fluid
                          v-if="getMovieImages.length > 1">
@@ -197,6 +207,19 @@
         }
       }
     },
+    filters: {
+      getFormatedPrice(value) {
+        return Math.abs(Number(value)) >= 1.0e+9
+          ? Math.round(Math.abs(Number(value)) / 1.0e+9 ) + " Billions"
+          // Six Zeroes for Millions
+          : Math.abs(Number(value)) >= 1.0e+6
+            ? Math.round(Math.abs(Number(value)) / 1.0e+6 ) + " Millions"
+            // Three Zeroes for Thousands
+            : Math.abs(Number(value)) >= 1.0e+3
+              ? Math.round(Math.abs(Number(value)) / 1.0e+3 ) + " Thousands"
+              : Math.abs(Number(value));
+      }
+    },
     methods: {
       getCurrentGenres(arrayOfGenres) {
         const result = []
@@ -220,7 +243,7 @@
           return ['unknown']
         }
       },
-    }
+    },
   }
 </script>
 
