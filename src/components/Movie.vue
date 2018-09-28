@@ -79,8 +79,40 @@
             <div class="title block mb-3"
                  v-if="getMovieDetails.spoken_languages.length !== 0">
               <span class="mb-3 option">Spoken languages:</span>
-              <span class="value ">{{getMovieDetails.spoken_languages[0].name}}</span>
+              <span class="value">{{getMovieDetails.spoken_languages[0].name}}</span>
             </div>
+            <v-layout column >
+              <v-flex xs12 v-if="getMovieCredits.cast.length !== 0">
+                <v-expansion-panel class="title">
+                <v-expansion-panel-content ripple>
+                  <div slot="header" class="option">Cast</div>
+                  <v-card   v-for="person in getMovieCredits.cast"
+                            :key="person.cast_id">
+                    <v-card-text>
+                      <span class="value">{{person.name}}</span>
+                      As
+                      <span class="value">{{person.character}}</span>
+                    </v-card-text>
+                  </v-card>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+              </v-flex>
+              <v-flex xs12 v-if="getMovieCredits.crew.length !== 0">
+                <v-expansion-panel class="title">
+                <v-expansion-panel-content ripple>
+                  <div slot="header" class="option">Crew</div>
+                  <v-card   v-for="person in getMovieCredits.crew"
+                            :key="person.cast_id">
+                    <v-card-text>
+                      <span class="value">{{person.name}}</span>
+                      As
+                      <span class="value">{{person.job}}</span>
+                    </v-card-text>
+                  </v-card>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+              </v-flex>
+            </v-layout>
             <v-container grid-list-xl fluid
                          v-if="getMovieImages.length > 1">
               <v-layout row wrap>
@@ -205,6 +237,9 @@
           case 'xl':
             return 'w1280'
         }
+      },
+      getMovieCredits () {
+        return this.$store.getters.getMovieCredits
       }
     },
     filters: {

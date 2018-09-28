@@ -4,6 +4,7 @@ export default {
   state: {
     movieDetails: [],
     movieImages: [],
+    movieCredits: [],
     movieId: null
   },
   mutations: {
@@ -15,6 +16,9 @@ export default {
     },
     saveMovieImages (state, payload) {
       state.movieImages = payload
+    },
+    saveMovieCredits (state, payload) {
+      state.movieCredits = payload
     }
   },
   actions: {
@@ -39,6 +43,16 @@ export default {
           commit('setErrorVisibility', true)
           throw error
         });
+      await axios
+        .get(`https://api.themoviedb.org/3/movie/${state.movieId}/credits?api_key=${rootState.shared.personalAPIKey}`)
+        .then((response) => {
+          commit('saveMovieCredits', response.data);
+        })
+        .catch(error => {
+          commit('setErrorMessage', error.message)
+          commit('setErrorVisibility', true)
+          throw error
+        });
     }
   },
   getters: {
@@ -47,6 +61,9 @@ export default {
     },
     getMovieImages (state) {
       return state.movieImages.backdrops
+    },
+    getMovieCredits (state) {
+      return state.movieCredits
     }
   }
 }
