@@ -33,10 +33,6 @@
       <td><code>npm run build</code></td>
       <td>Собрать проект для продакшена</td>
     </tr>
-     <tr>
-      <td><code>npm run build --report</code></td>
-      <td>Собрать проект для продакшена с отчетом</td>
-    </tr>
     <tr>
       <td><code>npm start ЗАДАЧА</code></td>
       <td>Запустить задачу с названием ЗАДАЧА (список задач в <code>package.json</code>)</td>
