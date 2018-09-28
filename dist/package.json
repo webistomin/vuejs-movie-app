@@ -1,0 +1,10 @@
+{
+  "name": "vuejs-movie-app",
+  "version": "1.0.0",
+  "description": "Heroku App",
+  "author": "webistomin",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm install express"
+  }
+}
