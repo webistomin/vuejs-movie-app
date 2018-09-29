@@ -1,5 +1,7 @@
-# vuejs-movie-app 
-> Одностраничное приложения для просмотра фильмов с помощью The Movie Database API
+# vuejs-movie-app
+> Одностраничное приложения для просмотра фильмов с помощью The Movie Database API 
+
+https://vuejs-movie-app.firebaseapp.com
 
 [![Build status][travis-image]][travis-url] [![dependencies Status](https://david-dm.org/webistomin/vuejs-movie-app/status.svg)](https://david-dm.org/webistomin/vuejs-movie-app) [![Dependency status][dependency-image]][dependency-url] 
 
