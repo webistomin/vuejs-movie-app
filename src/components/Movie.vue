@@ -10,7 +10,7 @@
     </div>
     <div v-else>
       <v-img
-        :src="getMovieDetails.backdrop_path ? `http://image.tmdb.org/t/p/${getBackdropSize}/${getMovieDetails.backdrop_path}` : `https://cdn.vuetifyjs.com/images/parallax/material.jpg`"
+        :src="getMovieDetails.backdrop_path ? `https://image.tmdb.org/t/p/${getBackdropSize}/${getMovieDetails.backdrop_path}` : `https://cdn.vuetifyjs.com/images/parallax/material.jpg`"
         height="300"
         class="movie-backdrop">
         <div v-if="getMovieDetails.tagline"
@@ -121,7 +121,7 @@
                   <v-carousel-item
                     v-for="img in getMovieImages"
                     :key="img.file_path"
-                    :src="img.file_path ? `http://image.tmdb.org/t/p/${getCarouselImageSize}/${img.file_path}` : `https://cdn.vuetifyjs.com/images/parallax/material.jpg`">
+                    :src="img.file_path ? `https://image.tmdb.org/t/p/${getCarouselImageSize}/${img.file_path}` : `https://cdn.vuetifyjs.com/images/parallax/material.jpg`">
                   </v-carousel-item>
                 </v-carousel>
               </v-layout>
@@ -155,18 +155,18 @@
 </template>
 
 <script>
-  import store from '../store/index'
-  import MovieCard from './MovieCard'
-  import ErrorMessage from './ErrorMessage'
+  import store from '../store/index';
+  import MovieCard from './MovieCard';
+  import ErrorMessage from './ErrorMessage';
 
   export default {
     components: {
       MovieCard,
-      ErrorMessage
+      ErrorMessage,
     },
     beforeRouteEnter(to, from, next) {
-      store.commit('updateLoadingState', true)
-      store.commit('saveMovieId', to.params.id)
+      store.commit('updateLoadingState', true);
+      store.commit('saveMovieId', to.params.id);
       store.dispatch('getMovieDetailsFromAPI')
         .then(() => {
           store.dispatch('getSimilarMoviesFromAPI')
@@ -176,12 +176,12 @@
                   store.commit('updateLoadingState', false)
                 })
             })
-        })
+        });
       next()
     },
     beforeRouteUpdate(to, from, next) {
-      this.$store.commit('updateLoadingState', true)
-      this.$store.commit('saveMovieId', to.params.id)
+      this.$store.commit('updateLoadingState', true);
+      this.$store.commit('saveMovieId', to.params.id);
       this.$store.dispatch('getMovieDetailsFromAPI')
         .then(() => {
           this.$store.dispatch('getSimilarMoviesFromAPI')
@@ -191,7 +191,7 @@
                   this.$store.commit('updateLoadingState', false)
                 })
             })
-        })
+        });
       next()
     },
     computed: {
@@ -213,33 +213,33 @@
       getBackdropSize() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return 'w300'
+            return 'w300';
           case 'sm':
-            return 'w300'
+            return 'w300';
           case 'md':
-            return 'w780'
+            return 'w780';
           case 'lg':
-            return 'w1280'
+            return 'w1280';
           case 'xl':
-            return 'w1280'
+            return 'w1280';
         }
       },
       getCarouselImageSize() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return 'w300'
+            return 'w300';
           case 'sm':
-            return 'w780'
+            return 'w780';
           case 'md':
-            return 'w780'
+            return 'w780';
           case 'lg':
-            return 'w1280'
+            return 'w1280';
           case 'xl':
-            return 'w1280'
+            return 'w1280';
         }
       },
       getMovieCredits () {
-        return this.$store.getters.getMovieCredits
+        return this.$store.getters.getMovieCredits;
       }
     },
     filters: {
@@ -257,8 +257,8 @@
     },
     methods: {
       getCurrentGenres(arrayOfGenres) {
-        const result = []
-        const genresList = this.$store.getters.getGenresList.genres
+        const result = [];
+        const genresList = this.$store.getters.getGenresList.genres;
 
         try {
           for (let i = 0; i < arrayOfGenres.length; i++) {

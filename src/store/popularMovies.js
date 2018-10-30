@@ -2,11 +2,11 @@ import axios from 'axios'
 
 export default {
   state: {
-    PopularMovies: []
+    PopularMovies: [],
   },
   mutations: {
     savePopularMovies (state, payload) {
-      state.PopularMovies = payload
+      state.PopularMovies = payload;
     }
   },
   actions: {
@@ -17,15 +17,15 @@ export default {
           commit('savePopularMovies', response.data);
         })
         .catch(error => {
-          commit('setErrorMessage', error.message)
-          commit('setErrorVisibility', true)
+          commit('setErrorMessage', error.message);
+          commit('setErrorVisibility', true);
           throw error
         });
     }
   },
   getters: {
     getPopularMovies (state) {
-      return state.PopularMovies.results
+      return state.PopularMovies.results;
     }
   }
 }

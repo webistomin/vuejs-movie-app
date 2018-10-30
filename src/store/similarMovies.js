@@ -2,11 +2,11 @@ import axios from 'axios'
 
 export default {
   state: {
-    similarMovies: []
+    similarMovies: [],
   },
   mutations: {
     saveSimilarMovies (state, payload) {
-      state.similarMovies = payload
+      state.similarMovies = payload;
     }
   },
   actions: {
@@ -17,15 +17,15 @@ export default {
           commit('saveSimilarMovies', response.data);
         })
         .catch(error => {
-          commit('setErrorMessage', error.message)
-          commit('setErrorVisibility', true)
+          commit('setErrorMessage', error.message);
+          commit('setErrorVisibility', true);
           throw error
         });
     }
   },
   getters: {
     getSimilarMovies (state) {
-      return state.similarMovies.results
+      return state.similarMovies.results;
     }
   }
 }

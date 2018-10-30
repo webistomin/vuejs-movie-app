@@ -35,21 +35,21 @@
 </template>
 
 <script>
-  import MovieCard from './MovieCard'
-  import ErrorMessage from './ErrorMessage'
+  import MovieCard from './MovieCard';
+  import ErrorMessage from './ErrorMessage';
 
   export default {
     components: {
       MovieCard,
-      ErrorMessage
+      ErrorMessage,
     },
     mounted() {
-      this.$store.dispatch('getPopularMoviesFromAPI')
+      this.$store.dispatch('getPopularMoviesFromAPI');
     },
     computed: {
       searchQuery: {
         get () {
-          return this.$store.state.shared.searchQuery
+          return this.$store.state.shared.searchQuery;
         },
         set (value) {
           this.$store.commit('updateCurrentPage', 1);
@@ -57,54 +57,54 @@
         }
       },
       getMoviesList () {
-        return this.$store.getters.getMoviesList.results
+        return this.$store.getters.getMoviesList.results;
       },
       getTotalPages () {
-        return this.$store.getters.getTotalPages
+        return this.$store.getters.getTotalPages;
       },
       currentPage: {
         get () {
-          return this.$store.state.shared.currentPage
+          return this.$store.state.shared.currentPage;
         },
         set (value) {
-          this.$store.commit('updateCurrentPage', value)
+          this.$store.commit('updateCurrentPage', value);
         }
       },
       getPopularMovies () {
-        return this.$store.getters.getPopularMovies
+        return this.$store.getters.getPopularMovies;
       },
       getTitleFontSize () {
         switch (this.$vuetify.breakpoint.name) {
-          case 'xs': return 'subheading'
-          case 'sm': return 'title'
-          case 'md': return 'headline'
-          case 'lg': return 'display-1'
-          case 'xl': return 'display-2'
+          case 'xs': return 'subheading';
+          case 'sm': return 'title';
+          case 'md': return 'headline';
+          case 'lg': return 'display-1';
+          case 'xl': return 'display-2';
         }
       },
       getTitleMargin () {
         switch (this.$vuetify.breakpoint.name) {
-          case 'xs': return 'mt-1 mb-1'
-          case 'sm': return 'mt-2 mb-2'
-          case 'md': return 'mt-3 mb-3'
-          case 'lg': return 'mt-3 mb-4'
-          case 'xl': return 'mt-5 mb-5'
+          case 'xs': return 'mt-1 mb-1';
+          case 'sm': return 'mt-2 mb-2';
+          case 'md': return 'mt-3 mb-3';
+          case 'lg': return 'mt-3 mb-4';
+          case 'xl': return 'mt-5 mb-5';
         }
       },
       getTotalVisiblePages () {
         switch (this.$vuetify.breakpoint.name) {
-          case 'xs': return 5
-          case 'sm': return 7
-          case 'md': return 10
-          case 'lg': return 15
-          case 'xl': return 20
+          case 'xs': return 5;
+          case 'sm': return 7;
+          case 'md': return 10;
+          case 'lg': return 15;
+          case 'xl': return 20;
         }
       }
     },
     methods: {
       getMoviesFromAPI () {
         this.$router.push('/');
-        this.$store.dispatch('getMoviesFromAPI')
+        this.$store.dispatch('getMoviesFromAPI');
       },
     }
   }

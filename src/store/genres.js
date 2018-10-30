@@ -6,7 +6,7 @@ export default {
   },
   mutations: {
     saveGenres(state, payload) {
-      state.genres = payload
+      state.genres = payload;
     },
   },
   actions: {
@@ -15,8 +15,8 @@ export default {
         .get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${rootState.shared.personalAPIKey}&language=en-US`)
         .then((response) => commit('saveGenres', response.data))
         .catch(error => {
-          commit('setErrorMessage', error.message)
-          commit('setErrorVisibility', true)
+          commit('setErrorMessage', error.message);
+          commit('setErrorVisibility', true);
           throw error
         });
     }

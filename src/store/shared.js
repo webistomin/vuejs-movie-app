@@ -5,7 +5,7 @@ export default {
     searchQuery: '',
     isLoading: null,
     errorMessage: null,
-    isErrorVisible: false
+    isErrorVisible: false,
   },
   mutations: {
     updateQuery (state, payload) {
@@ -27,13 +27,13 @@ export default {
   actions: {},
   getters: {
     getLoadingState (state) {
-      return state.isLoading
+      return state.isLoading;
     },
     getErrorMessage (state) {
-      return state.errorMessage
+      return state.errorMessage;
     },
     getErrorVisibility (state) {
-      return state.isErrorVisible
+      return state.isErrorVisible;
     }
   }
 }

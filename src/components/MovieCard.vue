@@ -4,7 +4,7 @@
   >
     <v-card color="#35495e" hover class="movie-card" :to="'/movie/' + itemName.id">
       <v-img
-        :src="itemName.poster_path ? `http://image.tmdb.org/t/p/${getImageSize}/${itemName.poster_path}` : `https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg`"
+        :src="itemName.poster_path ? `https://image.tmdb.org/t/p/${getImageSize}/${itemName.poster_path}` : `https://vsetattoo.com.ua/wp-content/themes/TattooKarma/assets/imagenotfound.svg`"
         class="card-image"
       >
       </v-img>

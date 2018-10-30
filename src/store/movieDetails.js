@@ -1,24 +1,24 @@
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
   state: {
     movieDetails: [],
     movieImages: [],
     movieCredits: [],
-    movieId: null
+    movieId: null,
   },
   mutations: {
     saveMovieId (state, payload) {
-      state.movieId = payload
+      state.movieId = payload;
     },
     saveDetails (state, payload) {
-      state.movieDetails = payload
+      state.movieDetails = payload;
     },
     saveMovieImages (state, payload) {
-      state.movieImages = payload
+      state.movieImages = payload;
     },
     saveMovieCredits (state, payload) {
-      state.movieCredits = payload
+      state.movieCredits = payload;
     }
   },
   actions: {
@@ -29,8 +29,8 @@ export default {
           commit('saveDetails', response.data);
         })
         .catch(error => {
-          commit('setErrorMessage', error.message)
-          commit('setErrorVisibility', true)
+          commit('setErrorMessage', error.message);
+          commit('setErrorVisibility', true);
           throw error
         });
       await axios
@@ -39,8 +39,8 @@ export default {
           commit('saveMovieImages', response.data);
         })
         .catch(error => {
-          commit('setErrorMessage', error.message)
-          commit('setErrorVisibility', true)
+          commit('setErrorMessage', error.message);
+          commit('setErrorVisibility', true);
           throw error
         });
       await axios
@@ -49,21 +49,21 @@ export default {
           commit('saveMovieCredits', response.data);
         })
         .catch(error => {
-          commit('setErrorMessage', error.message)
-          commit('setErrorVisibility', true)
+          commit('setErrorMessage', error.message);
+          commit('setErrorVisibility', true);
           throw error
         });
     }
   },
   getters: {
     getMovieDetails (state) {
-      return state.movieDetails
+      return state.movieDetails;
     },
     getMovieImages (state) {
-      return state.movieImages.backdrops
+      return state.movieImages.backdrops;
     },
     getMovieCredits (state) {
-      return state.movieCredits
+      return state.movieCredits;
     }
   }
 }

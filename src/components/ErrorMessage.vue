@@ -9,8 +9,7 @@
     <v-btn
       dark
       flat
-      @click="setErrorVisibility"
-    >
+      @click="setErrorVisibility">
       Close
     </v-btn>
   </v-snackbar>
@@ -20,15 +19,15 @@
   export default {
     computed: {
       getErrorMessage() {
-        return this.$store.getters.getErrorMessage
+        return this.$store.getters.getErrorMessage;
       },
       errorVisibility() {
-        return this.$store.getters.getErrorVisibility
+        return this.$store.getters.getErrorVisibility;
       }
     },
     methods: {
       setErrorVisibility () {
-        this.$store.commit('setErrorVisibility', false)
+        this.$store.commit('setErrorVisibility', false);
       }
     }
   }

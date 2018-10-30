@@ -1,12 +1,12 @@
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
   state: {
-    RecommendedMovies: []
+    RecommendedMovies: [],
   },
   mutations: {
     saveRecommendedMovies(state, payload) {
-      state.RecommendedMovies = payload
+      state.RecommendedMovies = payload;
     }
   },
   actions: {
@@ -17,15 +17,15 @@ export default {
           commit('saveRecommendedMovies', response.data);
         })
        .catch(error => {
-         commit('setErrorMessage', error.message)
-         commit('setErrorVisibility', true)
+         commit('setErrorMessage', error.message);
+         commit('setErrorVisibility', true);
          throw error
        });
     }
   },
   getters: {
     getRecommendedMovies(state) {
-      return state.RecommendedMovies.results
+      return state.RecommendedMovies.results;
     }
   }
 }

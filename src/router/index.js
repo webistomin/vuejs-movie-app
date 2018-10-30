@@ -1,36 +1,36 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import favoriteList from '@/components/FavoriteList'
-import nowPlayingList from '@/components/NowPlayingList'
-import topRatedList from '@/components/TopRatedList'
-import upcomingList from '@/components/UpcomingList'
-import notFound from '@/components/NotFound'
-import home from '@/components/Home'
-import movie from '@/components/Movie'
+import Vue from 'vue';
+import Router from 'vue-router';
+import favoriteList from '@/components/FavoriteList';
+import nowPlayingList from '@/components/NowPlayingList';
+import topRatedList from '@/components/TopRatedList';
+import upcomingList from '@/components/UpcomingList';
+import notFound from '@/components/NotFound';
+import home from '@/components/Home';
+import movie from '@/components/Movie';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
       path: '',
-      component: home
+      component: home,
     },
     {
       path: '/favorite-movies',
-      component: favoriteList
+      component: favoriteList,
     },
     {
       path: '/now-playing-movies',
-      component: nowPlayingList
+      component: nowPlayingList,
     },
     {
       path: '/top-rated-movies',
-      component: topRatedList
+      component: topRatedList,
     },
     {
       path: '/upcoming-movies',
-      component: upcomingList
+      component: upcomingList,
     },
     {
       path: '/movie/:id',
@@ -38,11 +38,11 @@ export default new Router({
     },
     {
       path: '*',
-      component: notFound
+      component: notFound,
     }
   ],
   mode: 'history',
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior () {
     return { x: 0, y: 0 }
   }
 })

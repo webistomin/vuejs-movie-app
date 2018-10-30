@@ -81,37 +81,37 @@
 </template>
 
 <script>
-  import _ from 'lodash'
+  import _ from 'lodash';
 
   export default {
     data: () => ({
-      drawer: false
+      drawer: false,
     }),
     mounted() {
       this.$store.commit('loadIdsFromLocalStorage');
-      this.$store.dispatch('getAllGenresFromAPI')
+      this.$store.dispatch('getAllGenresFromAPI');
     },
     created: function () {
-      this.debouncedGetAnswer = _.debounce(this.getMoviesFromAPI, 500)
+      this.debouncedGetAnswer = _.debounce(this.getMoviesFromAPI, 500);
     },
     computed: {
       setMarginSearchField() {
         switch (this.$vuetify.breakpoint.name) {
           case 'xs':
-            return 'ml-2'
+            return 'ml-2';
           case 'sm':
-            return 'ml-3'
+            return 'ml-3';
           case 'md':
-            return 'ml-4'
+            return 'ml-4';
           case 'lg':
-            return 'ml-5'
+            return 'ml-5';
           case 'xl':
-            return 'ml-5'
+            return 'ml-5';
         }
       },
       searchQuery: {
         get() {
-          return this.$store.state.shared.searchQuery
+          return this.$store.state.shared.searchQuery;
         },
         set(value) {
           this.$store.commit('updateCurrentPage', 1);
@@ -119,17 +119,17 @@
         }
       },
       getGenresList() {
-        return this.$store.getters.getGenresList.genres
+        return this.$store.getters.getGenresList.genres;
       },
       getTotalPages() {
-        return this.$store.getters.getTotalPages
+        return this.$store.getters.getTotalPages;
       },
       currentPage: {
         get() {
-          return this.$store.state.currentPage
+          return this.$store.state.currentPage;
         },
         set(value) {
-          this.$store.commit('updateCurrentPage', value)
+          this.$store.commit('updateCurrentPage', value);
         }
       },
 
@@ -137,7 +137,7 @@
     methods: {
       getMoviesFromAPI() {
         this.$router.push('/');
-        this.$store.dispatch('getMoviesFromAPI')
+        this.$store.dispatch('getMoviesFromAPI');
       },
       getCurrentGenres(arrayOfGenreIds) {
         const result = [];

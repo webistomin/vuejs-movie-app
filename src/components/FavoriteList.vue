@@ -25,44 +25,44 @@
 </template>
 
 <script>
-  import MovieCard from './MovieCard'
-  import ErrorMessage from './ErrorMessage'
+  import MovieCard from './MovieCard';
+  import ErrorMessage from './ErrorMessage';
 
   export default {
     components: {
       MovieCard,
-      ErrorMessage
+      ErrorMessage,
     },
     mounted() {
-      this.$store.commit('updateLoadingState', true)
-      this.$store.dispatch('getFavoriteMoviesIdsFromAPI')
+      this.$store.commit('updateLoadingState', true);
+      this.$store.dispatch('getFavoriteMoviesIdsFromAPI');
     },
     computed: {
       getFavoriteMoviesIds() {
-        return this.$store.getters.getFavoriteMoviesIds
+        return this.$store.getters.getFavoriteMoviesIds;
       },
       getFavoriteMoviesDetails() {
-        return this.$store.getters.getFavoriteMoviesDetails
+        return this.$store.getters.getFavoriteMoviesDetails;
       },
       isLoading() {
-        return this.$store.getters.getLoadingState
+        return this.$store.getters.getLoadingState;
       },
       getTitleFontSize () {
         switch (this.$vuetify.breakpoint.name) {
-          case 'xs': return 'subheading'
-          case 'sm': return 'title'
-          case 'md': return 'headline'
-          case 'lg': return 'display-1'
-          case 'xl': return 'display-2'
+          case 'xs': return 'subheading';
+          case 'sm': return 'title';
+          case 'md': return 'headline';
+          case 'lg': return 'display-1';
+          case 'xl': return 'display-2';
         }
       },
       getTitleMargin () {
         switch (this.$vuetify.breakpoint.name) {
-          case 'xs': return 'mt-1 mb-1'
-          case 'sm': return 'mt-2 mb-2'
-          case 'md': return 'mt-3 mb-3'
-          case 'lg': return 'mt-4 mb-4'
-          case 'xl': return 'mt-5 mb-5'
+          case 'xs': return 'mt-1 mb-1';
+          case 'sm': return 'mt-2 mb-2';
+          case 'md': return 'mt-3 mb-3';
+          case 'lg': return 'mt-4 mb-4';
+          case 'xl': return 'mt-5 mb-5';
         }
       },
     }
