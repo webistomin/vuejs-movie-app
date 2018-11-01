@@ -8,6 +8,7 @@ yarn-error.log*
 .firebaserc
 firebase.json
 /.firebase/
+firebase-debug.log
 
 # Editor directories and files
 .idea

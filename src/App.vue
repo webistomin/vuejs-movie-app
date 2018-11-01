@@ -81,7 +81,7 @@
 </template>
 
 <script>
-  import _ from 'lodash';
+  import debounce from 'lodash/debounce';
 
   export default {
     data: () => ({
@@ -92,7 +92,7 @@
       this.$store.dispatch('getAllGenresFromAPI');
     },
     created: function () {
-      this.debouncedGetAnswer = _.debounce(this.getMoviesFromAPI, 500);
+      this.debouncedGetAnswer = debounce(this.getMoviesFromAPI, 500);
     },
     computed: {
       setMarginSearchField() {
